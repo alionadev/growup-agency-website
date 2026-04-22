@@ -9,7 +9,9 @@ export default extendConfig(baseConfig, () => {
       rollupOptions: {
         input: ["src/entry.vercel-edge.tsx", "@qwik-city-plan"],
       },
-      outDir: ".vercel/output/functions/_qwik-city.func",
+      // Write the final Vercel Build Output API artifacts to the monorepo root
+      // so a root-level Vercel deploy can pick them up reliably.
+      outDir: "../.vercel/output/functions/_qwik-city.func",
     },
     plugins: [vercelEdgeAdapter()],
   };
