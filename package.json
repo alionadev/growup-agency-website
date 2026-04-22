@@ -2,7 +2,7 @@
   "name": "growup-agency-website",
   "private": true,
   "scripts": {
-    "build": "npm --prefix growup-agency ci --cache ./.npm-cache && npm --prefix growup-agency run build",
+    "build": "MONOREPO_ROOT_BUILD=1 npm --prefix growup-agency ci --cache ./.npm-cache && MONOREPO_ROOT_BUILD=1 npm --prefix growup-agency run build",
     "dev": "npm --prefix growup-agency run dev"
   }
 }
