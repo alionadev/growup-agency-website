@@ -2,7 +2,7 @@
 import { component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
 import { useLocation } from '@builder.io/qwik-city';
 
-const COOKIE_NAME = 'cookie_consent';
+const COOKIE_NAME = 'cookie_consent'; 
 
 function setCookie(name: string, value: string, days: number) {
   const expires = new Date(Date.now() + days * 864e5).toUTCString();
