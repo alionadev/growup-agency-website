@@ -1,3 +1,7 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "ignoreCommand": "false",
+  "installCommand": "npm --prefix growup-agency ci --cache ./.npm-cache",
   "buildCommand": "npm run build"
 }
