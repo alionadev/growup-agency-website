@@ -1,8 +1,8 @@
 {
-  "dependencies": {
-    "intl-tel-input": "^25.14.1"
-  },
-  "devDependencies": {
-    "@types/intl-tel-input": "^18.1.4"
+  "name": "growup-agency-website",
+  "private": true,
+  "scripts": {
+    "build": "cd growup-agency && npm run build",
+    "dev": "cd growup-agency && npm run dev"
   }
 }
