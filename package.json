@@ -2,7 +2,7 @@
   "name": "growup-agency-website",
   "private": true,
   "scripts": {
-    "build": "cd growup-agency && npm run build",
+    "build": "cd growup-agency && npm install && npm run build",
     "dev": "cd growup-agency && npm run dev"
   }
 }
