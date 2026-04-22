@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "vite",
+  "framework": null,
   "ignoreCommand": "false",
-  "installCommand": "npm ci --cache ../.npm-cache",
-  "buildCommand": "npm run build"
+  "installCommand": "echo VERCEL_APP_INSTALL && npm ci --cache ../.npm-cache",
+  "buildCommand": "echo VERCEL_APP_BUILD && npm run build"
 }
