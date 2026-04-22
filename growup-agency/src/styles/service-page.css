@@ -1,0 +1,799 @@
+/* Общий фон и текст */
+.service-page {
+  background: var(--color-bg); /* мягкий теплый бежевый фон как на главной */
+  color: #111111;
+  max-width: 1400px;
+  margin: auto;
+}
+
+/* HERO */
+.service-hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 64px;
+  padding: 120px 0vw 80px;
+  align-items: center;
+}
+
+
+/* левая колонка с текстом */
+.service-hero__badge {
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #4b5563;
+  margin-bottom: 12px;
+}
+
+.service-hero__title {
+  font-size: clamp(40px, 4vw, 56px);
+  line-height: 1.1;
+  margin: 0 0 16px;
+  font-weight: 700;
+}
+
+.service-hero__title span {
+  color: inherit; /* тут без фиолетового акцента */
+}
+
+.service-hero__subtitle {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #2563eb; /* синий акцент ссылки/подзаголовка */
+}
+
+.service-hero__description {
+  max-width: 520px;
+  color: #4b5563;
+  margin-bottom: 32px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.service-hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* КНОПКИ в стиле рефа */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 24px 26px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+/* чёрная основная, с мягкой тенью */
+.btn--primary {
+  background: #111111;
+  color: #ffffff;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.25);
+}
+
+.btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 22px 40px rgba(0, 0, 0, 0.28);
+}
+
+/* белая вторичная, как на скрине "Посмотреть кейсы" */
+.btn--ghost {
+  background: #ffffff;
+  color: #111111;
+  border-color: #e5e7eb;
+}
+
+.btn--ghost:hover {
+  background: #f9fafb;
+}
+
+/* если используешь hero картинку – пусть не перекрывается НЛО */
+.service-hero__image {
+  position: relative;
+  display: flex;
+  border-radius: 20px;
+  justify-content: center;
+  z-index: 1;
+}
+
+.service-hero__image img {
+border-radius: 20px;
+  width: 100%;
+  height: auto;
+}
+
+/* PROJECTS – светлые карточки, как плитки на светлом фоне */
+
+.service-projects {
+  padding: 32px 0 80px;
+  overflow: hidden;
+}
+
+.service-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 0 7vw 24px;
+}
+
+.service-section-label {
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9ca3af;
+  margin-bottom: 6px;
+}
+
+.service-section-title {
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.service-section-title span {
+  color: #2563eb;
+}
+
+.service-section-link {
+  font-size: 14px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.service-section-link:hover {
+  text-decoration: underline;
+}
+
+.service-projects__marquee {
+  position: relative;
+  padding-left: 7vw;
+}
+
+.service-projects__track {
+  display: flex;
+  gap: 24px;
+  animation: projects-marquee 30s linear infinite;
+}
+
+.service-project-card {
+  min-width: 280px;
+  max-width: 280px;
+  background: #ffffff;
+  border-radius: 24px;
+  padding: 16px 18px 20px;
+}
+
+.service-project-card img {
+  width: 100%;
+  border-radius: 18px;
+  margin-bottom: 12px;
+}
+
+.service-project-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.service-project-card p {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.service-project-card__client {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+@keyframes projects-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+
+/* ===== PROCESS: две колонки ===== */
+
+.service-process {
+  padding: 96px 7vw;
+}
+
+.service-process__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  column-gap: 80px;
+  align-items: flex-start;
+}
+
+/* левая колонка — текст */
+
+.service-process__header .service-section-label {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 8px;
+}
+
+.service-process__header .service-section-title {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.service-process__header .service-section-title span {
+  color: #2563eb; /* брендовый акцент */
+}
+
+.service-process__header .service-section-link {
+  font-size: 14px;
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.service-process__header .service-section-link:hover {
+  text-decoration: underline;
+}
+
+/* правая колонка — линия + шаги */
+
+.service-process__timeline {
+  position: relative;
+  padding-left: 60px; /* отступ под линию и кружки */
+}
+
+/* вертикальная линия */
+
+.service-process__timeline::before {
+  content: "";
+  position: absolute;
+  left: 30px;      /* положение линии */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #e5e7eb;
+}
+
+/* один шаг */
+
+.service-process-step {
+  position: relative;
+  padding: 24px 0;
+}
+
+/* кружок */
+
+.service-process-step__indicator {
+  position: absolute;
+  left: 8px;
+  top: 24px;
+
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 2px solid #e5e7eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  transition: all 0.2s ease;
+}
+
+/* текст шага — справа от кружка */
+
+.service-process-step__content {
+  margin-left: 80px; /* выравнивание в колонку */
+}
+
+.service-process-step__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.service-process-step__text {
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 520px;
+}
+
+/* hover: брендовый цвет кружка и заголовка */
+
+.service-process-step:hover .service-process-step__indicator {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.service-process-step:hover .service-process-step__title {
+  color: #2563eb;
+}
+
+/* ===== Мобилка: всё в одну колонку ===== */
+
+@media (max-width: 768px) {
+  .service-process {
+    padding: 56px 6vw;
+  }
+
+  .service-process__inner {
+    grid-template-columns: 1fr;
+
+  }
+
+  .service-process__timeline {
+    padding-left: 0;
+  }
+
+  .service-process__timeline::before {
+    display: none;
+  }
+
+  .service-process-step {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+  }
+
+  .service-process-step__indicator {
+    position: static;
+    flex-shrink: 0;
+  }
+
+  .service-process-step__content {
+    margin-left: 0;
+  }
+}
+
+
+/* OFFERS – светлый стек без дерганий */
+
+.service-offers {
+  padding: 120px 7vw 260px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  /* можно оставить перспективу, но она уже почти не нужна */
+  perspective: 1200px;
+  perspective-origin: center top;
+}
+
+/* базовая карточка */
+.service-offer-card {
+  position: sticky;
+  top: 22vh; /* остановка чуть выше центра экрана */
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 40px;
+  padding: 34px 38px;
+
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.1);
+
+  margin-top: 60px;
+  margin-bottom: 60px;
+
+  /* НИКАКОГО scale/translateZ по умолчанию */
+  transform: translateY(0);
+  transition:
+    transform 0.35s ease-out,
+    box-shadow 0.35s ease-out;
+}
+
+/* Активная карточка – просто чуть "выше" и с более сильной тенью */
+.service-offer-card--current {
+  transform: translateY(0);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.18);
+}
+
+/* Уже прошедшие – слегка приподнимаются и "отодвигаются" вверх */
+.service-offer-card--stacked {
+  transform: translateY(-18px); /* видно край сверху */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* последняя — без лишнего отступа снизу */
+.service-offer-card:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- внутренние стили оставляем как есть ---- */
+
+.service-offer-card__text .service-section-label {
+  color: #818cf8;
+}
+
+.service-offer-card__subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 8px 0 16px;
+}
+
+.service-offer-card ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.service-offer-card li {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.service-offer-card__media {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.service-offer-card__media img {
+  max-width: 360px;
+  width: 100%;
+  border-radius: 24px;
+}
+
+/* FAQ – светлый блок с аккордеоном */
+
+.service-faq {
+  padding: 80px 7vw 100px;
+}
+
+.service-faq__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 48px;
+  align-items: flex-start;
+}
+
+.service-faq__intro .service-section-label {
+  color: #9ca3af;
+}
+
+.service-faq__intro .service-section-title {
+  font-size: 26px;
+}
+
+.service-section-title {
+  font-size: 32px;
+}
+
+.service-faq__list {
+  background: #ffffff;
+  border-radius: 28px;
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.09);
+  padding: 24px 28px;
+}
+
+.faq-item {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 14px 0;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item p {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+
+
+/* CTA БРИФ – лавандовый градиент как на новом сайте */
+
+.service-brief-cta {
+  padding: 60px 7vw 100px;
+}
+
+.service-brief-cta__inner {
+  background: linear-gradient(90deg, #408cff, #6338ff);
+  border-radius: 40px;
+  padding: 32px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #111111;
+}
+
+.service-brief-cta__inner h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  width: 70%;
+}
+
+.service-brief-cta__inner p {
+  font-size: 14px;
+  color: #1f2933;
+  max-width: 420px;
+}
+
+.btn--light {
+  background: #ffffff;
+  color: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.16);
+}
+
+.btn--light:hover {
+  background: #f9fafb;
+}
+
+@media (max-width: 768px) {
+  /* ОБЩЕЕ */
+  .service-page {
+    padding-top: 80px; /* чтобы не липло к хедеру */
+    max-width: 100%;
+  }
+
+  .section-title {
+    font-size: 28px;
+    line-height: 1.15;
+  }
+
+  .section-subtitle {
+    font-size: 15px;
+  }
+
+  /* ========== HERO ========== */
+
+  .service-hero {
+    grid-template-columns: 1fr;
+    padding: 64px 20px 40px;
+    gap: 28px;
+  }
+
+  /* НЛО на мобиле убираем, чтобы не мешало */
+  .service-hero::after {
+    display: none;
+  }
+
+  .service-hero__title {
+    font-size: 30px;
+  }
+
+  .service-hero__subtitle {
+    font-size: 16px;
+  }
+
+  .service-hero__description {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .service-hero__cta {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .service-hero__cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* картинка наверху, по центру */
+  .service-hero__image {
+    order: -1;
+    justify-content: center;
+  }
+
+  .service-hero__image img {
+    max-width: 320px;
+  }
+
+  /* ========== PROJECTS (кейсы) ========== */
+
+  .service-projects {
+    padding: 32px 0 48px;
+  }
+
+  .service-section-header {
+    padding: 0 20px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .service-section-title {
+    font-size: 22px;
+  }
+
+  .service-section-link {
+    font-size: 14px;
+  }
+
+  .service-projects__marquee {
+    padding-left: 20px;
+    overflow-x: auto; /* ручной скролл вместо бесконечной бегущей строки */
+  }
+
+  .service-projects__track {
+    gap: 16px;
+  }
+
+  .service-project-card {
+    min-width: 260px;
+    max-width: 260px;
+    padding: 14px 16px 18px;
+  }
+
+  /* ========== PROCESS (таймлайн шагов) ========== */
+
+  .service-process {
+    padding: 48px 20px;
+  }
+
+  .service-process__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    
+  }
+
+  .service-process__timeline {
+    margin-top: 24px;
+  }
+
+  .service-process-step {
+        gap: 16px;
+  }
+
+  .service-process-step__indicator {
+    font-size: 12px;
+  }
+
+  .service-process-step__content h3 {
+    font-size: 15px;
+  }
+
+  .service-process-step__content p {
+    font-size: 14px;
+  }
+
+  /* ========== OFFERS (наши стек-карточки) ========== */
+  /* НА МОБИЛЕ БЕЗ СТЭКА – обычный вертикальный список */
+
+  .service-offers {
+    padding: 40px 20px 60px;
+    perspective: none;
+  }
+
+  .service-offer-card {
+    position: static; /* вместо sticky */
+    top: auto;
+    margin: 0 0 20px;
+    padding: 22px 20px;
+    grid-template-columns: 1fr; /* одна колонка */
+    gap: 16px;
+    transform: none !important;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .service-offer-card--current,
+  .service-offer-card--stacked {
+    transform: none !important;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .service-offer-card:last-child {
+    margin-bottom: 0;
+  }
+
+  /* картинка сверху */
+  .service-offer-card__media {
+    order: -1;
+    justify-content: center;
+  }
+
+  .service-offer-card__media img {
+    max-width: 100%;
+    border-radius: 24px;
+  }
+
+  .service-offer-card ul {
+    font-size: 14px;
+    gap: 4px;
+  }
+
+  /* ========== FAQ ========== */
+
+  .service-faq {
+    padding: 48px 20px 70px;
+  }
+
+  .service-faq__layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .service-faq__intro .service-section-title {
+    font-size: 24px;
+  }
+
+  .service-faq__list {
+    padding: 18px 18px;
+    border-radius: 24px;
+  }
+
+  .faq-item summary {
+    font-size: 15px;
+  }
+
+  .faq-item p {
+    font-size: 14px;
+  }
+
+  /* ========== CTA / BRIEF ========== */
+
+  .service-brief-cta {
+    padding: 40px 20px 60px;
+  }
+
+  .service-brief-cta__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 24px 22px;
+    border-radius: 32px;
+  }
+
+  .service-brief-cta__inner h2 {
+    font-size: 20px;
+  }
+
+  .service-brief-cta__inner p {
+    font-size: 14px;
+    max-width: 100%;
+  }
+
+  .service-brief-cta__inner .btn--light {
+    width: 100%;
+    justify-content: center;
+  }
+}

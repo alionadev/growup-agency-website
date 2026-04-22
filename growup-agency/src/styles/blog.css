@@ -1,0 +1,278 @@
+.page--blog {
+  background: var(--color-bg, #f7f4f0);
+}
+
+/* Обёртка */
+
+.blog {
+  padding: 80px 0 64px;
+}
+
+.blog__inner {
+  max-width: var(--container-width, 1200px);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Табы */
+
+.blog-tabs-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.blog-tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: var(--shadow-soft, 0 18px 45px rgba(15, 23, 42, 0.06));
+}
+
+.blog-tabs__btn {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 14px;
+  background: transparent;
+  color: var(--color-text-muted, #7a7a7a);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.blog-tabs__btn--active {
+  background: #000;
+  color: #fff;
+}
+
+/* Заголовок */
+
+.blog-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* Сетка постов */
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.blog-card {
+  border-radius: 24px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft, 0 18px 45px rgba(15, 23, 42, 0.06));
+}
+
+.blog-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.blog-card__image-wrap {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.blog-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.2s ease;
+}
+
+.blog-card__body {
+  padding: 16px 18px 20px;
+}
+
+.blog-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.blog-card__category {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted, #7a7a7a);
+}
+
+.blog-card__time {
+  color: var(--color-text-muted, #999);
+}
+
+.blog-card__title {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+.blog-card__excerpt {
+  font-size: 14px;
+  color: var(--color-text-muted, #666);
+  margin-bottom: 10px;
+}
+
+.blog-card__readmore {
+  font-size: 13px;
+  text-decoration: underline;
+}
+
+.blog-card__link:hover .blog-card__image {
+  transform: scale(1.03);
+}
+
+/* Адаптив */
+
+@media (max-width: 1024px) {
+  .blog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .blog {
+    padding-top: 56px;
+  }
+
+  .blog-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====== ОДИН ПОСТ ====== */
+
+.blog-post__inner {
+  max-width: 800px;
+}
+
+.blog-post__back {
+  font-size: 14px;
+  color: var(--color-text-muted, #777);
+  text-decoration: none;
+}
+
+.blog-post__back:hover {
+  text-decoration: underline;
+}
+
+.blog-post__header {
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+
+.blog-post__meta {
+  font-size: 13px;
+  color: var(--color-text-muted, #777);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.blog-post__title {
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+.blog-post__cover-wrap {
+  margin: 20px 0 24px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-soft, 0 18px 45px rgba(15, 23, 42, 0.06));
+}
+
+.blog-post__cover {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.blog-post__content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.blog-post__section-title {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.blog-post__text {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--color-text-muted, #444);
+}
+
+.blog-post__image-wrap {
+  margin-top: 10px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #eee;
+}
+
+.blog-post__image {
+  width: 100%;
+  display: block;
+}
+
+/* CTA внизу статьи */
+
+.blog-post-cta {
+  margin-top: 36px;
+  padding: 22px 20px;
+  border-radius: 20px;
+  background: #000;
+  color: #fff;
+}
+
+.blog-post-cta h2 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.blog-post-cta p {
+  font-size: 14px;
+  margin-bottom: 14px;
+  color: #f5f5f5;
+}
+
+.blog-post-cta__form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.blog-post-cta__input {
+  flex: 1 1 180px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: none;
+}
+
+.blog-post-cta .btn {
+  border-radius: 999px;
+  padding: 10px 22px;
+}
+
+/* адаптив */
+
+@media (max-width: 768px) {
+  .blog-post__title {
+    font-size: 24px;
+  }
+
+  .blog-post-cta__form {
+    flex-direction: column;
+  }
+}

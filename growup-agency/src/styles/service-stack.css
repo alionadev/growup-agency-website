@@ -1,0 +1,136 @@
+/* Контейнер секции */
+.service-offers {
+  position: relative;
+  padding: 120px 7vw 260px;
+}
+
+/* Базовая карточка стека */
+.service-offer-card {
+  /* будут приходить из JS */
+  --stack: 0; /* 0 = активная/будущая, 1,2,3... = чем дальше назад */
+  --i: 0; /* порядковый номер в списке */
+
+  position: sticky;
+  /* ВСЕ карточки прилипают по одной линии — примерно по центру экрана */
+  top: 30vh;
+  transform: translateY(calc(-50% + var(--i) * 40px));
+
+  /* лёгкая лесенка за счёт обычного потока, а не top */
+  margin-top: calc(var(--i) * 40px);
+  margin-bottom: 140px;
+
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 40px;
+  padding: 34px 38px;
+
+  background: #ffffff;
+  border-radius: 32px;
+  box-shadow: 0 28px 60px rgba(15, 23, 42, 0.16);
+
+  transform-origin: top center;
+
+  /* 
+    БАЗОВАЯ ИДЕЯ:
+    - var(--i) задаёт легкую ступеньку по Y вниз
+    - var(--stack) поджимает прошедшие карточки вверх и уменьшает scale
+  */
+  transform: translateY(
+      calc(
+        var(--i) * 40px /* каждая следующая ниже */ - var(--stack) * 18px
+          /* прошедшие чуть поднимаем */
+      )
+    )
+    scale(
+      calc(1 - var(--stack) * 0.04) /* чем больше stack, тем меньше карточка */
+    );
+
+
+  z-index: calc(30 - var(--stack)); /* чем дальше назад, тем ниже по z */
+
+  transition:
+    transform 0.35s ease-out,
+
+    box-shadow 0.35s ease-out;
+}
+
+/* можешь дополнительно чуть уменьшать тень у дальних карточек */
+.service-offer-card {
+  box-shadow: 0 28px 60px rgba(15, 23, 42, 0.18);
+}
+
+/* Текст и картинка как раньше */
+.service-offer-card__text .service-section-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #818cf8;
+}
+
+.service-offer-card__subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 8px 0 16px;
+}
+
+.service-offer-card ul {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.service-offer-card li {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.service-offer-card__media {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.service-offer-card__media img {
+  max-width: 360px;
+  width: 100%;
+  border-radius: 24px;
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .service-offers {
+    padding: 40px 4vw 120px;
+    perspective: 700px;
+  }
+
+  .service-offer-card {
+    position: sticky;
+    top: 15vh; /* можно потом опустить/поднять */
+    height: 80vh;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 20px 18px 24px;
+
+    margin-top: 12px;      /* БЫЛО 32px → теперь почти впритык */
+    margin-bottom: 12px;
+
+    border-radius: 22px;
+  }
+
+  /* АКТИВНАЯ — чуть вперёд */
+  .service-offer-card--current {
+    transform: translateY(-8px);  /* БЫЛО -4 → больше перекрытие */
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  }
+
+  /* ПРОШЕДШИЕ — перекрываем намного сильнее */
+  .service-offer-card--stacked {
+    transform: translateY(-48px); /* БЫЛО -12 → теперь плотный стек */
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+  }
+
+  .service-offer-card:first-child {
+    margin-top: 0;
+  }
+}

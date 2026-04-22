@@ -1,0 +1,619 @@
+.page--projects {
+  background: #f7f5f2;
+}
+
+.page--project {
+  background: #f4f2ef;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.section-title--center {
+  text-align: center;
+}
+
+.section-subtitle {
+  font-size: 0.98rem;
+  line-height: 1.6;
+  margin: 8px 0 0;
+  color: #555;
+}
+
+.section-subtitle--center {
+  text-align: center;
+}
+
+/* ===============================
+   СТРАНИЦА СО СПИСКОМ ПРОЕКТОВ
+================================= */
+
+.projects {
+  padding: 72px 0 64px;
+}
+
+.projects__inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Табы категорий */
+
+.projects-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: var(--shadow-soft);
+  padding: 4px 6px;
+
+  max-width: fit-content;
+  margin: 0 auto 32px;
+
+  /* горизонтальный скролл */
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  scroll-snap-type: x proximity; /* чтобы табы “прилипали” при скролле */
+}
+
+/* прячем скроллбар */
+.projects-tabs::-webkit-scrollbar {
+  display: none;
+}
+.projects-tabs {
+  scrollbar-width: none;
+}
+
+/* белая "пилюля"-контейнер */
+.projects-tabs::before,
+.projects-tabs::after {
+  content: "";
+}
+
+.projects-tabs__btn {
+  border: none;
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-text-muted);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.projects-tabs__btn:hover {
+  transform: translateY(-1px);
+}
+
+.projects-tabs__btn--active {
+  background: var(--color-dark);
+  color: #ffffff;
+}
+
+/* Заголовок */
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Сетка проектов */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.project-card {
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.06);
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.project-card__link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-card__image-wrap {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.project-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.project-card__body {
+  padding: 16px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.project-card__client {
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.project-card__title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.project-card__subtitle {
+  font-size: 0.92rem;
+  color: #4b5563;
+  margin: 0;
+}
+
+.project-card__more {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #111827;
+}
+
+/* hover карточки */
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+}
+
+.project-card:hover .project-card__image {
+  transform: scale(1.04);
+}
+
+/* Блок "Нам доверяют" */
+
+.trust {
+  padding: 40px 0 52px;
+}
+
+.trust__inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: center;
+}
+
+.trust-logos {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.trust-logo {
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  font-size: 0.85rem;
+  color: #4b5563;
+  background: #ffffffcc;
+}
+
+
+/* ФОН СТРАНИЦЫ */
+.page--project {
+  background: #f4f2ef; /* тёплый светлый фон как на макете */
+}
+
+/* Контейнер страницы */
+.project__inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* Ссылка "← Все проекты" */
+.project__back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  margin-bottom: 24px;
+  color: #4b4b4b;
+}
+
+/* ========== HERO ========== */
+
+.project-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px;
+  padding: 32px 32px;
+  border-radius: 32px;
+  align-items: center;
+}
+
+.project-hero__text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.project-hero__title {
+  font-size: 2.1rem;
+  line-height: 1.2;
+  font-weight: 700;
+  margin: 0;
+ 
+}
+
+.project-hero__subtitle {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #333;
+}
+
+/* "задача" */
+.project-hero__task {
+  margin-top: 4px;
+}
+
+.project-hero__task-label {
+  display: block;
+  font-size: 0.85rem;
+  text-transform: lowercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.project-hero__task-text {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* Мета-блок */
+
+.project-hero__meta {
+  display: flex;
+  gap: 0 20px;
+  justify-content: space-between;
+  margin-top: 28px;
+  max-width: 620px;
+
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 18px 32px;
+}
+
+.project-hero__meta div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.project-hero__meta dt {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7rem;
+  color: #c3c3c3;
+}
+
+.project-hero__meta dd {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #222;
+  white-space: nowrap;
+}
+
+/* адаптив таблетки на мобилке */
+@media (max-width: 768px) {
+  .project-hero__meta {
+    grid-template-columns: 1fr;
+    row-gap: 10px;
+    border-radius: 24px;
+    padding: 16px 20px;
+  }
+}
+
+/* Контейнер вокруг карточки */
+.project-hero__image-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Серая бенто-плашка */
+.project-hero__image-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #e9e7e4;
+  border-radius: 40px; /* как у остальных бенто-блоков */
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Картинка внутри */
+.project-hero__image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* НИЧЕГО НЕ ОБРЕЗАЕТ */
+  display: block;
+}
+
+/* ========== СЕКЦИИ ========== */
+
+.project-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin-top: 60px;
+}
+
+/* Общие */
+.project-section__title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.project-section__body {
+  font-size: 1rem;
+  line-height: 1.7;
+  white-space: pre-line;
+  color: #222;
+}
+
+/* Блок "Маркетинговая задача и цели" — одна белая карточка */
+.project-section--goals {
+  background: #ffffff;
+  border-radius: 32px;
+  padding: 32px 32px;
+}
+
+/* Реализация: слева серый блок, справа белая карточка */
+.project-section--solution .project-section__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.project-section__media--left {
+  border-radius: 32px;
+  background: transparent;
+}
+
+.project-section__media {
+  flex: 1;
+  background: transparent;
+  border-radius: 40px;
+  padding: 0;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-height: 520px; /* фиксированная геометрия как у бенто-блока */
+}
+
+/* Само фото */
+.project-section__image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* НИЧЕГО не режет */
+  display: block;
+}
+
+.project-section__gallery {
+  margin-top: 32px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.project-section__gallery-item {
+  background: #e9e7e4;
+  border-radius: 32px;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  aspect-ratio: 1 / 1; /* квадратные мини-блоки */
+}
+
+.project-section__gallery-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.project-hero__image,
+.project-section__image,
+.project-section__gallery-image{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* заполняет, может чуть обрезать */
+  object-position: center;
+  display: block;
+}
+
+
+.project-hero__image-placeholder{
+  width: 100%;
+  aspect-ratio: 4 / 5;   /* под твой макет, можно 3/4 или 1/1.2 */
+  background: #e9e7e4;
+  border-radius: 40px;
+  overflow: hidden;
+}
+
+@media (max-width: 900px){
+  .project-hero__image-placeholder{
+    aspect-ratio: 3 / 4;
+  }
+}
+/* Результаты: слева белая, справа серая */
+.project-section--results .project-section__content {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 28px;
+  align-items: stretch;
+}
+
+.project-section--solution .project-section__text,
+.project-section--results .project-section__text {
+  background: #ffffff;
+  border-radius: 32px;
+  padding: 32px 32px;
+}
+
+.project-section__media--right {
+  border-radius: 32px;
+  background: #dedcd7;
+}
+
+
+/* Доп. галерея под блоком */
+.project-section__gallery--below {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.project-section__gallery-item {
+  background: #dedcd7;
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+
+/* ========== МОБИЛКА ========== */
+
+@media (max-width: 900px) {
+  .project-hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 20px;
+  }
+
+  .project-hero__image-wrap {
+    order: -1; /* если захочешь картинку сверху — можно поменять */
+  }
+
+  .project-hero__meta {
+    grid-template-columns: 1fr;
+     display: grid;
+    gap: 20px;
+  }
+
+  .project-section--solution .project-section__content,
+  .project-section--results .project-section__content {
+    grid-template-columns: 1fr;
+  
+  }
+
+  .project-section--solution .project-section__text,
+  .project-section--results .project-section__text {
+    padding: 24px 20px;
+  }
+
+  .project-section--goals {
+    padding: 24px 20px;
+  }
+  .project-hero__image-placeholder {
+    border-radius: 28px;
+    max-width: 360px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .project-section__gallery--below {
+    grid-template-columns: 1fr 1fr;
+  }
+  .project-section__media {
+    min-height: 360px;
+    border-radius: 28px;
+  }
+
+  .project-section__gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .project-section__gallery-item {
+    border-radius: 20px;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .project-card__body {
+    padding: 12px 12px 14px;
+  }
+
+  .project-card__title {
+    font-size: 0.98rem;
+  }
+
+  .project-card__subtitle {
+    font-size: 0.86rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .project__inner {
+    padding-inline: 16px;
+  }
+
+  .project-hero__title {
+    font-size: 1.6rem;
+  }
+
+  .project-section__gallery--below {
+    grid-template-columns: 1fr;
+  }
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+ 
+}
