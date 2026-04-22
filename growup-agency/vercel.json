@@ -1,4 +1,0 @@
-{
-  "buildCommand": "cd growup-agency && npm install && npm run build",
-  "outputDirectory": "growup-agency/.vercel/output"
-}
