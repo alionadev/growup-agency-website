@@ -1,6 +1,6 @@
-import { component$ } from "@builder.io/qwik";
-import { isDev } from "@builder.io/qwik";
+import { component$, isDev, useVisibleTask$ } from "@builder.io/qwik";
 import { QwikCityProvider, RouterOutlet } from "@builder.io/qwik-city";
+import { inject } from "@vercel/analytics";
 import { RouterHead } from "./components/router-head/router-head";
 import { CookieBanner } from "./components/layout/CookieBanner"; 
 import './styles/cookie-banner.css';
@@ -8,6 +8,11 @@ import './styles/cookie-banner.css';
 
 export default component$(() => {
   const META_PIXEL_ID = "1601489467655242";
+
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    inject({ mode: isDev ? "development" : "production" });
+  });
 
   return (
     <QwikCityProvider>
