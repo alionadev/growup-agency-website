@@ -9,6 +9,7 @@
 }
 
 .clients__marquee {
+  --clients-gap: 56px;
   position: relative;
   overflow: hidden;
   margin-top: 60px;
@@ -35,31 +36,35 @@
 .clients__track {
   display: flex;
   align-items: center;
-  gap: 56px;
   width: max-content;
+  min-width: max-content;
   will-change: transform;
 }
 
-/* верхний ряд: слева направо */
-.clients__marquee--top .clients__track {
-  animation: marquee-fwd 26s linear infinite;
+.clients__group {
+  display: flex;
+  align-items: center;
+  gap: var(--clients-gap);
+  flex: 0 0 auto;
+  min-width: max-content;
+  padding-right: var(--clients-gap);
 }
 
-/* нижний ряд: справа налево */
+.clients__marquee--top .clients__track {
+  animation: clients-marquee-left 30s linear infinite;
+}
+
 .clients__marquee--bottom .clients__track {
-  animation: marquee-rev 30s linear infinite;
+  animation: clients-marquee-right 34s linear infinite;
   margin-top: 14px;
 }
 
-/* от 0 до -50% — проходим ровно один набор логотипов,
-   потом бесшовно начинаем заново (вторая копия = первая) */
-@keyframes marquee-fwd {
+@keyframes clients-marquee-left {
   from { transform: translate3d(0, 0, 0); }
   to   { transform: translate3d(-50%, 0, 0); }
 }
 
-/* обратное направление: от -50% до 0 */
-@keyframes marquee-rev {
+@keyframes clients-marquee-right {
   from { transform: translate3d(-50%, 0, 0); }
   to   { transform: translate3d(0, 0, 0); }
 }
@@ -67,15 +72,17 @@
 .clients__item {
   flex: 0 0 auto;
   height: 70px;
+  min-width: 120px;
   display: flex;
   align-items: center;
+  justify-content: center;
   opacity: 0.9;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .clients__item img {
-  height: 100%;
-  width: auto;
+  height: 70px;
+  width: 170px;
   max-width: 170px;
   object-fit: contain;
   display: block;
@@ -127,6 +134,31 @@ a.clients__item {
 @media (prefers-reduced-motion: reduce) {
   .clients__track {
     animation: none !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .clients__marquee {
+    --clients-gap: 34px;
+  }
+
+  .clients__marquee--top .clients__track {
+    animation-duration: 24s;
+  }
+
+  .clients__marquee--bottom .clients__track {
+    animation-duration: 28s;
+  }
+
+  .clients__item {
+    height: 56px;
+    min-width: 96px;
+  }
+
+  .clients__item img {
+    width: 136px;
+    height: 56px;
+    max-width: 136px;
   }
 }
 

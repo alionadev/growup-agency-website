@@ -46,41 +46,86 @@ export const HomeClients = component$(() => {
     };
   });
 
-  // Дублируем только 2 раза — анимация едет ровно на -50%,
-  // вторая копия = первая, поэтому переход бесшовный
-  const topItems    = [...clientsTop,    ...clientsTop];
-  const bottomItems = [...clientsBottom, ...clientsBottom];
-
   return (
     <section class="clients">
       <div class="clients__inner">
         <h2 class="section-title section-title--center">{clientsTitle}</h2>
 
         <div class="clients__marquee clients__marquee--top">
-          <div class="clients__track">
-            {topItems.map((c, i) => {
-              const href = withLang(c.href, lang);
-              const Tag: any = href ? 'a' : 'div';
-              return (
-                <Tag class="clients__item" key={c.src + i} href={href} aria-label={c.alt}>
-                  <img src={c.src} alt={c.alt} loading="lazy" decoding="async" />
-                </Tag>
-              );
-            })}
+          <div class="clients__track" aria-label={clientsTitle}>
+            {[clientsTop, clientsTop].map((group, groupIndex) => (
+              <div
+                class="clients__group"
+                key={`top-group-${groupIndex}`}
+                aria-hidden={groupIndex === 1 ? 'true' : undefined}
+              >
+                {group.map((c, i) => {
+                  const href = withLang(c.href, lang);
+                  const isExternal = Boolean(href && /^https?:\/\//i.test(href));
+                  const Tag: any = href ? 'a' : 'div';
+
+                  return (
+                    <Tag
+                      class="clients__item"
+                      key={`${c.src}-${groupIndex}-${i}`}
+                      href={href}
+                      aria-label={c.alt}
+                      target={isExternal ? '_blank' : undefined}
+                      rel={isExternal ? 'noopener noreferrer' : undefined}
+                      tabIndex={groupIndex === 1 ? -1 : undefined}
+                    >
+                      <img
+                        src={c.src}
+                        alt={c.alt}
+                        loading="lazy"
+                        decoding="async"
+                        width="170"
+                        height="70"
+                      />
+                    </Tag>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
 
         <div class="clients__marquee clients__marquee--bottom">
-          <div class="clients__track">
-            {bottomItems.map((c, i) => {
-              const href = withLang(c.href, lang);
-              const Tag: any = href ? 'a' : 'div';
-              return (
-                <Tag class="clients__item" key={c.src + i} href={href} aria-label={c.alt}>
-                  <img src={c.src} alt={c.alt} loading="lazy" decoding="async" />
-                </Tag>
-              );
-            })}
+          <div class="clients__track" aria-label={clientsTitle}>
+            {[clientsBottom, clientsBottom].map((group, groupIndex) => (
+              <div
+                class="clients__group"
+                key={`bottom-group-${groupIndex}`}
+                aria-hidden={groupIndex === 1 ? 'true' : undefined}
+              >
+                {group.map((c, i) => {
+                  const href = withLang(c.href, lang);
+                  const isExternal = Boolean(href && /^https?:\/\//i.test(href));
+                  const Tag: any = href ? 'a' : 'div';
+
+                  return (
+                    <Tag
+                      class="clients__item"
+                      key={`${c.src}-${groupIndex}-${i}`}
+                      href={href}
+                      aria-label={c.alt}
+                      target={isExternal ? '_blank' : undefined}
+                      rel={isExternal ? 'noopener noreferrer' : undefined}
+                      tabIndex={groupIndex === 1 ? -1 : undefined}
+                    >
+                      <img
+                        src={c.src}
+                        alt={c.alt}
+                        loading="lazy"
+                        decoding="async"
+                        width="170"
+                        height="70"
+                      />
+                    </Tag>
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
       </div>
