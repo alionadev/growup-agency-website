@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { useLocation } from '@builder.io/qwik-city';
+import { Link, useLocation } from '@builder.io/qwik-city';
 import { useHomePage } from '~/routes/[lang]/layout';
 
 export const HomeServices = component$(() => {
@@ -24,7 +24,7 @@ export const HomeServices = component$(() => {
 
       <div class="services__grid">
         {services.map((s) => (
-          <article class="services__card" key={s.link}>
+          <Link class="services__card" href={withLang(s.link || '/')} key={s.link}>
             <div class="services__tag">{s.tag}</div>
             <h3 class="services__title">{s.title}</h3>
 
@@ -36,10 +36,10 @@ export const HomeServices = component$(() => {
               ))}
             </ul>
 
-            <a href={withLang(s.link || '/')} class="services__link">
+            <span class="services__link">
               {servicesCta}
-            </a>
-          </article>
+            </span>
+          </Link>
         ))}
       </div>
     </section>

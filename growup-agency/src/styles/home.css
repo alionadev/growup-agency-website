@@ -160,16 +160,25 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
   transition:
     transform 0.18s ease,
     box-shadow 0.18s ease,
     background 0.18s ease;
 }
 
-.services__card:hover {
+.services__card:hover,
+.services__card:focus-visible {
   transform: translateY(-4px);
   background: #f1f4ff;
   box-shadow: 0 26px 60px rgba(49, 63, 192, 0.28);
+}
+
+.services__card:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }
 
 .services__tag {

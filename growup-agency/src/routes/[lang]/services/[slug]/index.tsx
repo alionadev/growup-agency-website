@@ -95,6 +95,7 @@ export const useServicePage = routeLoader$<SanityService>(async ({ params }) => 
 });
 
 export const useServiceProjects = routeLoader$<SanityProject[]>(async ({ params }) => {
+  const lang = (params.lang as Lang) || 'ru';
   const slug = params.slug;
 
   // 1) Берём category key из service (ads/smm/branding/web)
@@ -117,12 +118,12 @@ export const useServiceProjects = routeLoader$<SanityProject[]>(async ({ params 
     ]
     | order(_createdAt desc)[0...10]{
       "slug": slug.current,
-      title,
-      "tagline": heroSubtitle,
+      "title": coalesce(title[$lang], title.ru, ""),
+      "tagline": coalesce(heroSubtitle[$lang], heroSubtitle.ru, ""),
       client,
       "image": cover.asset->url
     }`,
-    { categoryKey }
+    { categoryKey, lang }
   );
 
   return projects || [];

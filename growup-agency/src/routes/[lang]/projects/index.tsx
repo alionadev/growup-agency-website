@@ -82,16 +82,19 @@ const I18N: Record<
   },
 };
 
-export const useProjects = routeLoader$<Project[]>(async () => {
+export const useProjects = routeLoader$<Project[]>(async ({ params }) => {
+  const lang = (params.lang as Lang) || 'ru';
+
   const projects = await sanityClient.fetch<Project[]>(
     `*[_type == "project"] | order(_createdAt desc){
       "slug": slug.current,
       "categories": coalesce(categories, []),
-      title,
-      "subtitle": heroSubtitle,
+      "title": coalesce(title[$lang], title.ru, ""),
+      "subtitle": coalesce(heroSubtitle[$lang], heroSubtitle.ru, ""),
       client,
       "cover": cover.asset->url
-    }`
+    }`,
+    { lang }
   );
 
   return projects || [];

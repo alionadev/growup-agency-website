@@ -6,22 +6,22 @@ type Locale = 'ru' | 'en' | 'ro';
 const LOCALES: Locale[] = ['ru', 'en', 'ro'];
 
 const I18N: Record<Locale, {
-  services: string; pricing: string; consult: string;
+  services: string; consult: string;
   portfolio: string; contacts: string; getProposal: string;
   paidAds: string; smm: string; design: string; web: string;
 }> = {
   ru: {
-    services: 'Услуги', pricing: 'Цены', consult: 'Консультация',
+    services: 'Услуги', consult: 'Консультация',
     portfolio: 'Портфолио', contacts: 'Контакты', getProposal: 'Получить предложение',
     paidAds: 'Платная реклама', smm: 'SMM / соцсети', design: 'Дизайн и креатив', web: 'Web-разработка',
   },
   en: {
-    services: 'Services', pricing: 'Pricing', consult: 'Consultation',
+    services: 'Services', consult: 'Consultation',
     portfolio: 'Portfolio', contacts: 'Contacts', getProposal: 'Get a proposal',
     paidAds: 'Paid advertising', smm: 'SMM / Social media', design: 'Design & Creative', web: 'Web development',
   },
   ro: {
-    services: 'Servicii', pricing: 'Prețuri', consult: 'Consultație',
+    services: 'Servicii', consult: 'Consultație',
     portfolio: 'Portofoliu', contacts: 'Contacte', getProposal: 'Cere o ofertă',
     paidAds: 'Publicitate plătită', smm: 'SMM / Social media', design: 'Design & creație', web: 'Dezvoltare web',
   },
@@ -75,7 +75,6 @@ export const Header = component$(() => {
             </div>
           </div>
 
-          <Link href={href('/pricing')}        class="header__link">{t.pricing}</Link>
           <Link href={homeAnchor('consult')}   class="header__link">{t.consult}</Link>
           <Link href={href('/projects')}       class="header__link">{t.portfolio}</Link>
           <Link href={href('/contact')}        class="header__link">{t.contacts}</Link>
@@ -128,7 +127,6 @@ export const Header = component$(() => {
           )}
         </div>
 
-        <Link href={href('/pricing')}       class="header__link" onClick$={() => (isMenuOpen.value = false)}>{t.pricing}</Link>
         <Link href={homeAnchor('consult')}  class="header__link" onClick$={() => (isMenuOpen.value = false)}>{t.consult}</Link>
         <Link href={href('/projects')}      class="header__link" onClick$={() => (isMenuOpen.value = false)}>{t.portfolio}</Link>
         <Link href={href('/contact')}       class="header__link" onClick$={() => (isMenuOpen.value = false)}>{t.contacts}</Link>
