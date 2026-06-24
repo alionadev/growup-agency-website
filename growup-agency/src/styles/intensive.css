@@ -608,7 +608,7 @@
   z-index: 3;
   border-radius: 0 22px 22px 22px;
   background: var(--yellow);
-  color: var(--blue);
+  color: var(--ink);
   padding: 14px 18px 18px;
 }
 
@@ -621,7 +621,7 @@
 .expert-text p {
   margin: 0;
   font-size: 20px;
-  font-weight: 620;
+  font-weight: 600;
   line-height: 1.12;
 }
 
@@ -651,15 +651,16 @@
 
 .price-section > span {
   display: inline-flex;
+  margin-bottom: 50px;
   border-radius: 999px;
   background: #fff;
   padding: 8px 14px;
   color: var(--red);
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .price-section h2 {
-  margin: 24px 0 0;
+  margin: 0;
   font-size: 36px;
   font-weight: 700;
   line-height: 0.94;
