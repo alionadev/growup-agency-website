@@ -240,7 +240,7 @@ export default component$(() => {
         </section>
 
         <section class="bonus-card">
-          <div class="bonus-ribbon" aria-hidden="true">🎀</div>
+          <img class="bonus-card__bg" src="/bonus.png" alt="" width="370" height="378" aria-hidden="true" />
           <span class="bonus-pill">Бонус всем участникам</span>
           <h2>
             Готовый план продвижения
@@ -270,7 +270,6 @@ export default component$(() => {
                 </span>
               </article>
             ))}
-            <div class="audience-spacer" aria-hidden="true" />
           </div>
           <div class="audience-cta">
             <h3>Хочешь привлекать клиентов через интернет и не зависеть только от рекомендаций</h3>

@@ -251,18 +251,24 @@
   margin-bottom: 58px;
   overflow: hidden;
   border-radius: 30px;
-  background: #fff;
-  padding: 24px 20px 18px;
+  background: transparent;
+  padding: 58px 20px 18px;
   text-align: center;
 }
 
-.bonus-ribbon {
+.bonus-card__bg {
   position: absolute;
-  top: -9px;
-  left: -10px;
-  transform: rotate(-16deg);
-  font-size: 88px;
-  line-height: 1;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+.bonus-card > :not(.bonus-card__bg) {
+  position: relative;
+  z-index: 1;
 }
 
 .bonus-pill {
@@ -339,11 +345,15 @@
   padding: 18px 16px;
 }
 
+.audience-card:first-child {
+  grid-column: 1 / -1;
+}
+
 .audience-card h3 {
   min-height: 44px;
   margin: 0;
   border-bottom: 1px dashed rgba(255, 255, 255, 0.18);
-  padding-bottom: 8px;
+  padding-bottom: 10px;
   font-size: 20px;
   font-weight: 760;
   line-height: 0.94;
@@ -415,17 +425,6 @@
 
 .audience-card--yellow p {
   color: rgba(23, 19, 44, 0.55);
-}
-
-.audience-spacer {
-  grid-row: 4;
-  grid-column: 1;
-  align-self: start;
-  width: 82px;
-  height: 82px;
-  justify-self: end;
-  border-radius: 30px;
-  background: #fff;
 }
 
 .audience-card--wide {
