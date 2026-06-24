@@ -7,21 +7,21 @@ const LOCALES: Locale[] = ['ru', 'en', 'ro'];
 
 const I18N: Record<Locale, {
   services: string; consult: string;
-  portfolio: string; contacts: string; getProposal: string;
+  intensive: string; portfolio: string; contacts: string; getProposal: string;
   paidAds: string; smm: string; design: string; web: string;
 }> = {
   ru: {
-    services: 'Услуги', consult: 'Консультация',
+    services: 'Услуги', consult: 'Консультация', intensive: 'Интенсив',
     portfolio: 'Портфолио', contacts: 'Контакты', getProposal: 'Получить предложение',
     paidAds: 'Платная реклама', smm: 'SMM / соцсети', design: 'Дизайн и креатив', web: 'Web-разработка',
   },
   en: {
-    services: 'Services', consult: 'Consultation',
+    services: 'Services', consult: 'Consultation', intensive: 'Intensive',
     portfolio: 'Portfolio', contacts: 'Contacts', getProposal: 'Get a proposal',
     paidAds: 'Paid advertising', smm: 'SMM / Social media', design: 'Design & Creative', web: 'Web development',
   },
   ro: {
-    services: 'Servicii', consult: 'Consultație',
+    services: 'Servicii', consult: 'Consultație', intensive: 'Intensiv',
     portfolio: 'Portofoliu', contacts: 'Contacte', getProposal: 'Cere o ofertă',
     paidAds: 'Publicitate plătită', smm: 'SMM / Social media', design: 'Design & creație', web: 'Dezvoltare web',
   },
@@ -76,6 +76,7 @@ export const Header = component$(() => {
           </div>
 
           <Link href={homeAnchor('consult')}   class="header__link">{t.consult}</Link>
+          <a href={href('/intensive')}         class="header__link">{t.intensive}</a>
           <Link href={href('/projects')}       class="header__link">{t.portfolio}</Link>
           <Link href={href('/contact')}        class="header__link">{t.contacts}</Link>
           <Link href={href('/contact')}        class="hero-btn">{t.getProposal}</Link>
@@ -128,6 +129,7 @@ export const Header = component$(() => {
         </div>
 
         <Link href={homeAnchor('consult')}  class="header__link" onClick$={() => (isMenuOpen.value = false)}>{t.consult}</Link>
+        <a href={href('/intensive')}        class="header__link" onClick$={() => (isMenuOpen.value = false)}>{t.intensive}</a>
         <Link href={href('/projects')}      class="header__link" onClick$={() => (isMenuOpen.value = false)}>{t.portfolio}</Link>
         <Link href={href('/contact')}       class="header__link" onClick$={() => (isMenuOpen.value = false)}>{t.contacts}</Link>
         <Link href={href('/contact')}       class="hero-btn"     onClick$={() => (isMenuOpen.value = false)}>{t.getProposal}</Link>

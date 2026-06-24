@@ -1,5 +1,11 @@
 import type { RequestHandler } from '@builder.io/qwik-city';
 
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
 export const onPost: RequestHandler = async ({ request, json }) => {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;
@@ -15,6 +21,10 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   const phone = String(body.phone ?? '').trim();
   const email = String(body.email ?? '').trim();
   const page = String(body.page ?? '').trim();
+  const source = String(body.source ?? 'consultation_form').trim();
+  const course = String(body.course ?? '').trim();
+  const niche = String(body.niche ?? '').trim();
+  const lang = String(body.lang ?? '').trim();
 
   if (!name || (!phone && !email)) {
     json(400, { ok: false, error: 'Missing name or contact' });
@@ -22,14 +32,18 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   }
 
   const contacts: string[] = [];
-  if (phone) contacts.push(`📞 Телефон: <b>${phone}</b>`);
-  if (email) contacts.push(`✉️ Email: <b>${email}</b>`);
+  if (phone) contacts.push(`📞 Телефон: <b>${escapeHtml(phone)}</b>`);
+  if (email) contacts.push(`✉️ Email: <b>${escapeHtml(email)}</b>`);
 
   const text =
-    `🆕 <b>Новая заявка: бесплатная консультация</b>\n` +
-    `👤 Имя: <b>${name}</b>\n` +
+    `🆕 <b>Новая заявка: ${source === 'marketing_intensive' ? 'интенсив по маркетингу' : 'бесплатная консультация'}</b>\n` +
+    `👤 Имя: <b>${escapeHtml(name)}</b>\n` +
     (contacts.length ? contacts.join('\n') + '\n' : '') +
-    (page ? `📄 Страница: <code>${page}</code>\n` : '') +
+    (course ? `🎓 Курс: <b>${escapeHtml(course)}</b>\n` : '') +
+    (niche ? `💼 Ниша: <b>${escapeHtml(niche)}</b>\n` : '') +
+    (lang ? `🌐 Язык: <b>${escapeHtml(lang)}</b>\n` : '') +
+    `📌 Источник: <code>${escapeHtml(source)}</code>\n` +
+    (page ? `📄 Страница: <code>${escapeHtml(page)}</code>\n` : '') +
     `🕒 Время: ${new Date().toLocaleString('ru-RU')}`;
 
   try {
