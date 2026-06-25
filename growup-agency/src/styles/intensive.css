@@ -1013,14 +1013,10 @@
     padding: 0 40px 96px;
   }
 
-  .program-card::before,
-  .bonus-card::before,
   .audience-section::before,
   .results-section::before,
   .includes-section::before,
-  .price-section::before,
-  .faq-section::before,
-  .final-cta > span {
+  .faq-section::before {
     display: none;
   }
 
