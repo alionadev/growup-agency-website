@@ -1,4 +1,4 @@
-import { component$ } from '@builder.io/qwik';
+import { component$, useVisibleTask$ } from '@builder.io/qwik';
 import { type DocumentHead, useLocation } from '@builder.io/qwik-city';
 import '~/styles/intensive.css';
 
@@ -179,10 +179,36 @@ export default component$(() => {
   const lang = getLang(loc.params.lang as string | undefined);
   const ctaHref = applyHref(lang);
 
+  // eslint-disable-next-line qwik/no-use-visible-task
+  useVisibleTask$(() => {
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      items.forEach((item) => item.classList.add('reveal--visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('reveal--visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -10% 0px', threshold: 0.12 },
+    );
+
+    items.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
+  });
+
   return (
     <main class="intensive-page">
       <div class="intensive-shell">
-        <section class="intensive-hero">
+        <section class="intensive-hero reveal reveal--soft">
           <div class="hero-badges">
             <span class="pill pill--accent">Интенсив 4 дня</span>
             <span class="pill">Бухарест · офлайн</span>
@@ -217,7 +243,7 @@ export default component$(() => {
           </a>
         </section>
 
-        <section class="program-card">
+        <section class="program-card reveal reveal--lift">
           <h2>За 4 дня — от упаковки бренда до запуска рекламы</h2>
           <div class="program-list">
             {program.map((item) => (
@@ -239,7 +265,7 @@ export default component$(() => {
           </a>
         </section>
 
-        <section class="bonus-card">
+        <section class="bonus-card reveal reveal--scale">
           <img class="bonus-card__bg" src="/bonus.png" alt="" width="370" height="378" aria-hidden="true" />
           <span class="bonus-pill">Бонус всем участникам</span>
           <h2>
@@ -256,13 +282,13 @@ export default component$(() => {
         </section>
 
         <section class="audience-section">
-          <h2>
+          <h2 class="reveal reveal--lift">
             Этот интенсив для тебя,
             <span>если ты:</span>
           </h2>
           <div class="audience-grid">
             {audience.map((card) => (
-              <article class={`audience-card ${card.className}`} key={card.index}>
+              <article class={`audience-card reveal reveal--card ${card.className}`} key={card.index}>
                 <h3>{card.title}</h3>
                 <p>{card.text}</p>
                 <span class="audience-index">
@@ -271,7 +297,7 @@ export default component$(() => {
               </article>
             ))}
           </div>
-          <div class="audience-cta">
+          <div class="audience-cta reveal reveal--soft">
             <h3>Хочешь привлекать клиентов через интернет и не зависеть только от рекомендаций</h3>
             <a class="cta cta--red" href={ctaHref}>
               Это про меня — записаться <span>→</span>
@@ -280,30 +306,30 @@ export default component$(() => {
         </section>
 
         <section class="results-section">
-          <h2>
+          <h2 class="reveal reveal--slide-right">
             После интенсива
             <span>вы сможете</span>
           </h2>
           <div class="result-list">
             {results.map((item) => (
-              <div class="result-item" key={item}>
+              <div class="result-item reveal reveal--result" key={item}>
                 <span>✓</span>
                 <p>{item}</p>
               </div>
             ))}
           </div>
-          <a class="cta cta--dark" href={ctaHref}>
+          <a class="cta cta--dark reveal reveal--soft" href={ctaHref}>
             Хочу такой результат <span>→</span>
           </a>
         </section>
 
         <section class="includes-section">
-          <h2>
+          <h2 class="reveal reveal--slide-left">
             Что входит <span>в обучение</span>
           </h2>
           <div class="include-list">
             {includes.map(([icon, text]) => (
-              <div class="include-item" key={text}>
+              <div class="include-item reveal reveal--include" key={text}>
                 <span>{icon}</span>
                 <p>{text}</p>
               </div>
@@ -311,7 +337,7 @@ export default component$(() => {
           </div>
         </section>
 
-        <section class="expert-card">
+        <section class="expert-card reveal reveal--soft">
           <div class="expert-label">Основатель GrowUp Agency</div>
           <h2>Алёна Русу</h2>
           <div class="expert-stats">
@@ -337,7 +363,7 @@ export default component$(() => {
           </a>
         </section>
 
-        <section class="price-section">
+        <section class="price-section reveal reveal--scale">
           <span>Стоимость участия</span>
           <h2>Количество мест ограничено</h2>
           <div class="price-values">
@@ -350,7 +376,7 @@ export default component$(() => {
           </a>
         </section>
 
-        <section class="faq-section">
+        <section class="faq-section reveal reveal--lift">
           <h2>FAQ</h2>
           <div class="faq-list">
             {faq.map((item, index) => (
@@ -365,7 +391,7 @@ export default component$(() => {
           </div>
         </section>
 
-        <section class="final-cta">
+        <section class="final-cta reveal reveal--soft">
           <span>Запись открыта</span>
           <h2>Узнайте программу и даты обучения уже сегодня</h2>
           <p>
