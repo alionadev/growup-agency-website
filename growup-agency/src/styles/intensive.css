@@ -56,8 +56,7 @@
 }
 
 .intensive-hero {
-  min-height: calc(100svh - 72px);
-  padding: 58px 0 42px;
+  padding: 50px 0 30px;
   text-align: center;
 }
 
@@ -636,7 +635,7 @@
 .price-section {
   position: relative;
   display: flex;
-  height: 300px;
+  min-height: 300px;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -644,13 +643,13 @@
   border-radius: 30px;
   background: var(--blue);
   color: #fff;
-  padding: 28px 25px 0;
+  padding: 28px 25px 50px;
   text-align: center;
 }
 
 .price-section > span {
   display: inline-flex;
-  margin-bottom: 50px;
+  margin-bottom: 34px;
   border-radius: 999px;
   background: #fff;
   padding: 8px 14px;
@@ -683,7 +682,7 @@
 }
 
 .price-section p {
-  margin: 24px auto 0;
+  margin: 18px auto 0;
   max-width: 270px;
   font-size: 12px;
   line-height: 1.05;
