@@ -262,6 +262,31 @@
   padding: 25px 18px 18px;
 }
 
+.program-card::before {
+  display: inline-flex;
+  margin: 0 0 18px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(91, 91, 232, 0.22);
+  border-radius: 999px;
+  background: #fff;
+  padding: 8px 10px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  text-align: center;
+  text-transform: none;
+}
+
+.program-card::before {
+  content: "Программа интенсива";
+  border-color: rgba(255, 211, 77, 0.7);
+  background: transparent;
+  color: var(--yellow);
+}
+
 .program-card h2 {
   margin: 0;
   font-size: 32px;
@@ -315,12 +340,34 @@
 
 .bonus-card {
   position: relative;
+  display: flex;
+  height: 360px;
+  flex-direction: column;
+  align-items: center;
   margin-bottom: 58px;
   overflow: hidden;
   border-radius: 30px;
   background: transparent;
-  padding: 58px 20px 18px;
+  padding: 28px 20px 18px;
   text-align: center;
+}
+
+.bonus-card::before {
+  content: "Бонус всем участникам";
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin: 0 auto 16px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1px solid rgba(239, 77, 66, 0.22);
+  background: #fff;
+  color: var(--red);
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .bonus-card__bg {
@@ -339,7 +386,7 @@
 }
 
 .bonus-card h2 {
-  margin: 11px 0 0;
+  margin: 0;
   font-size: 32px;
   font-weight: 760;
   line-height: 0.88;
@@ -357,7 +404,7 @@
 }
 
 .bonus-card p {
-  margin: 24px 0 24px;
+  margin: 22px 0 18px;
   color: #696474;
   font-size: 16px;
   line-height: 1.2;
@@ -365,6 +412,7 @@
 
 .bonus-card .cta {
   min-height: 57px;
+  margin-top: auto;
   font-size: 20px;
 }
 
@@ -684,7 +732,7 @@
 .expert-card h2 {
   position: relative;
   z-index: 2;
-  margin: 14px 0 0;
+  margin: 18px 0 0;
   font-size: 47px;
   font-weight: 560;
   line-height: 0.94;
@@ -695,15 +743,16 @@
   z-index: 2;
   display: inline-flex;
   width: max-content;
-  margin-top: 16px;
+  margin-top: 0;
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.32);
   border-radius: 999px;
-  padding: 8px 18px;
-  color: rgba(255, 255, 255, 0.82);
-  font-size: 14px;
-  font-weight: 700;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 8px 10px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-weight: 500;
   line-height: 1;
 }
 
@@ -741,6 +790,10 @@
   height: 100%;
   object-fit: cover;
   object-position: center bottom;
+}
+
+.expert-photo--desktop {
+  display: none;
 }
 
 .expert-text {
@@ -790,6 +843,21 @@
   color: #fff;
   padding: 28px 25px 50px;
   text-align: center;
+}
+
+.price-section::before {
+  content: "Стоимость участия";
+  display: inline-flex;
+  margin: 0 auto 28px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--red);
+  padding: 8px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
 }
 
 .price-section h2 {
@@ -902,6 +970,22 @@
   text-align: center;
 }
 
+.final-cta > span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--yellow);
+  border-radius: 999px;
+  background: transparent;
+  padding: 8px 10px;
+  color: var(--yellow);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 1;
+  text-transform: none;
+}
+
 .final-cta h2 {
   margin: 28px 0 20px;
   font-size: 32px;
@@ -927,6 +1011,17 @@
   .intensive-shell {
     width: min(100%, 1400px);
     padding: 0 40px 96px;
+  }
+
+  .program-card::before,
+  .bonus-card::before,
+  .audience-section::before,
+  .results-section::before,
+  .includes-section::before,
+  .price-section::before,
+  .faq-section::before,
+  .final-cta > span {
+    display: none;
   }
 
   .cta {
@@ -1367,10 +1462,12 @@
     grid-column: 1;
     grid-row: 1;
     align-self: end;
+    margin: 0;
     font-size: 44px;
   }
 
   .expert-role {
+    display: inline-flex;
     grid-column: 1;
     grid-row: 2;
     margin-top: 16px;
@@ -1391,7 +1488,12 @@
     padding: 26px;
   }
 
-  .expert-card img {
+  .expert-photo--mobile {
+    display: none;
+  }
+
+  .expert-card .expert-photo--desktop {
+    display: block;
     position: absolute;
     top: auto;
     right: 0;

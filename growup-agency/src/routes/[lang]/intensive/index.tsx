@@ -359,8 +359,8 @@ export default component$(() => {
         </section>
 
         <section class="expert-card reveal reveal--soft">
-          <h2>Алёна Русу</h2>
           <div class="expert-role">Основатель GrowUp Agency</div>
+          <h2>Алёна Русу</h2>
           <div class="expert-stats">
             <p>
               <strong>8+</strong>
@@ -371,7 +371,8 @@ export default component$(() => {
               <span>реализованных<br />проектов</span>
             </p>
           </div>
-          <img src="/aliona-png.png" alt="Алёна Русу" width="755" height="881" />
+          <img class="expert-photo expert-photo--mobile" src="/ob-Alione.png" alt="Алёна Русу" width="726" height="1240" />
+          <img class="expert-photo expert-photo--desktop" src="/aliona-png.png" alt="Алёна Русу" width="755" height="881" />
           <div class="expert-text">
             <span aria-hidden="true">🔥</span>
             <p>
@@ -412,6 +413,7 @@ export default component$(() => {
         </section>
 
         <section class="final-cta reveal reveal--soft">
+          <span>Запись открыта</span>
           <h2>Узнайте программу и даты обучения уже сегодня</h2>
           <p>
             Получите программу, даты проведения и условия участия. Начните привлекать клиентов системно, а не случайно.
