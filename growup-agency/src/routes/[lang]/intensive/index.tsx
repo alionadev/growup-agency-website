@@ -181,6 +181,24 @@ export default component$(() => {
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
+    const page = document.querySelector('.intensive-page');
+    const shortWordPattern = /(^|[\s([{«„“"'])([А-Яа-яЁёA-Za-z]{1,2})\s+/g;
+
+    if (page) {
+      const walker = document.createTreeWalker(page, NodeFilter.SHOW_TEXT);
+      const textNodes: Text[] = [];
+      let currentNode = walker.nextNode();
+
+      while (currentNode) {
+        textNodes.push(currentNode as Text);
+        currentNode = walker.nextNode();
+      }
+
+      textNodes.forEach((node) => {
+        node.nodeValue = node.nodeValue?.replace(shortWordPattern, '$1$2\u00A0') ?? '';
+      });
+    }
+
     const items = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -209,38 +227,42 @@ export default component$(() => {
     <main class="intensive-page">
       <div class="intensive-shell">
         <section class="intensive-hero reveal reveal--soft">
-          <div class="hero-badges">
-            <span class="pill pill--accent">Интенсив 4 дня</span>
-            <span class="pill">Бухарест · офлайн</span>
+          <div class="hero-copy">
+            <div class="hero-badges">
+              <span class="pill pill--accent">Интенсив 4 дня</span>
+              <span class="pill">Бухарест · офлайн</span>
+            </div>
+
+            <h1 class="hero-title">
+              Как привлекать клиентов в Румынии
+              <span>и увеличить продажи за 4 дня</span>
+            </h1>
+
+            <p class="hero-subtitle">
+              Практический интенсив
+              <strong>для предпринимателей, экспертов и специалистов</strong>
+            </p>
+
+            <div class="hero-tags">
+              <span>Офлайн</span>
+              <span>Записи уроков</span>
+              <span>3 недели поддержка</span>
+            </div>
+
+            <a class="cta cta--hero" href={ctaHref}>
+              Оставить заявку <span>→</span>
+            </a>
           </div>
 
-          <h1 class="hero-title">
-            Как привлекать клиентов в Румынии
-            <span>и увеличить продажи за 4 дня</span>
-          </h1>
-
-          <p class="hero-subtitle">
-            Практический интенсив
-            <strong>для предпринимателей, экспертов и специалистов</strong>
-          </p>
-
-          <div class="hero-tags">
-            <span>Офлайн</span>
-            <span>Записи уроков</span>
-            <span>3 недели поддержка</span>
-          </div>
-
-          <div class="hero-photo-card">
-            <img src="/1block.png" alt="Интенсив по маркетингу в Бухаресте" width="782" height="820" />
-            <div class="price-ticket">
-              <strong>1200 RON</strong>
-              <span>1600 RON</span>
+          <div class="hero-visual">
+            <div class="hero-photo-card">
+              <img src="/1block.png" alt="Интенсив по маркетингу в Бухаресте" width="782" height="820" />
+              <div class="price-ticket">
+                <strong>1200 RON</strong>
+                <span>1600 RON</span>
+              </div>
             </div>
           </div>
-
-          <a class="cta cta--hero" href={ctaHref}>
-            Оставить заявку <span>→</span>
-          </a>
         </section>
 
         <section class="program-card reveal reveal--lift">
@@ -267,7 +289,6 @@ export default component$(() => {
 
         <section class="bonus-card reveal reveal--scale">
           <img class="bonus-card__bg" src="/bonus.png" alt="" width="370" height="378" aria-hidden="true" />
-          <span class="bonus-pill">Бонус всем участникам</span>
           <h2>
             Готовый план продвижения
             <span>на 30 дней</span>
@@ -338,8 +359,8 @@ export default component$(() => {
         </section>
 
         <section class="expert-card reveal reveal--soft">
-          <div class="expert-label">Основатель GrowUp Agency</div>
           <h2>Алёна Русу</h2>
+          <div class="expert-role">Основатель GrowUp Agency</div>
           <div class="expert-stats">
             <p>
               <strong>8+</strong>
@@ -350,7 +371,7 @@ export default component$(() => {
               <span>реализованных<br />проектов</span>
             </p>
           </div>
-          <img src="/ob-Alione.png" alt="Алёна Русу" width="726" height="1240" />
+          <img src="/aliona-png.png" alt="Алёна Русу" width="755" height="881" />
           <div class="expert-text">
             <span aria-hidden="true">🔥</span>
             <p>
@@ -364,7 +385,6 @@ export default component$(() => {
         </section>
 
         <section class="price-section reveal reveal--scale">
-          <span>Стоимость участия</span>
           <h2>Количество мест ограничено</h2>
           <div class="price-values">
             <strong>1200 RON</strong>
@@ -392,7 +412,6 @@ export default component$(() => {
         </section>
 
         <section class="final-cta reveal reveal--soft">
-          <span>Запись открыта</span>
           <h2>Узнайте программу и даты обучения уже сегодня</h2>
           <p>
             Получите программу, даты проведения и условия участия. Начните привлекать клиентов системно, а не случайно.
