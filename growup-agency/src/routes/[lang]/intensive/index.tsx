@@ -1,5 +1,5 @@
-import { component$, useVisibleTask$ } from '@builder.io/qwik';
-import { type DocumentHead, useLocation } from '@builder.io/qwik-city';
+import { $, component$, useSignal, useVisibleTask$ } from '@builder.io/qwik';
+import { type DocumentHead, useLocation, useNavigate } from '@builder.io/qwik-city';
 import '~/styles/intensive.css';
 
 type Lang = 'ru' | 'en' | 'ro';
@@ -9,48 +9,72 @@ const LOCALES: Lang[] = ['ru', 'en', 'ro'];
 const getLang = (raw?: string): Lang =>
   raw && LOCALES.includes(raw as Lang) ? (raw as Lang) : 'ru';
 
-const applyHref = (lang: Lang) => `/${lang}/contact?source=intensive`;
+const formatRomanianPhone = (value: string) => {
+  let digits = value.replace(/\D/g, '');
+
+  if (digits.startsWith('40')) {
+    digits = digits.slice(2);
+  }
+
+  if (digits.startsWith('0')) {
+    digits = digits.slice(1);
+  }
+
+  digits = digits.slice(0, 9);
+
+  const groups = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 9)].filter(Boolean);
+  return groups.length ? `+40 ${groups.join(' ')}` : '+40 ';
+};
 
 const program = [
   {
-    number: '/1',
-    title: 'Узнаваемость бренда и продажи в Румынии',
+    number: 'День 1',
+    title: 'Как сделать бренд узнаваемым в Румынии и увеличить продажи',
     bullets: [
-      'Какие инструменты маркетинга реально работают в Румынии',
-      'Где искать клиентов в 2026 году',
-      'Как конкурировать даже с небольшим бюджетом',
-      'Какие площадки дают лучший результат для малого бизнеса',
+      'Разбор рабочих инструментов маркетинга в Румынии',
+      'Техники продаж и привлечения клиентов в 2026 году',
+      'Как быть конкурентноспособным даже с небольшим бюджетом',
+      'С чего начать при выходе на новый рынок',
     ],
+    result:
+      'Определитесь со стратегией продвижения для своего бизнеса. Выстроите позиционирование своего бренда.',
   },
   {
-    number: '/2',
+    number: 'День 2',
     title: 'Упаковка бренда в онлайне',
     bullets: [
-      'Как оформить Instagram, Facebook и Google Business',
-      'Что должно быть в профиле, чтобы люди покупали',
-      'Как правильно презентовать свои услуги',
-      'Как выстроить доверие к бренду',
+      'Оформление страниц в Instagram, Facebook, TikTok и Google Business',
+      'Создание воронки продаж в каждой социальной сети',
+      'Презентация своих услуг на холодную и теплую аудиторию',
+      'Форматы продающего контента',
     ],
+    result:
+      'Упакуете страницы в соц сетях по продающей структуре и увеличите лояльность ваших покупателей.',
   },
   {
-    number: '/3',
-    title: 'Разработка офферов и спецпредложений',
+    number: 'День 3',
+    title: 'Разработка оферов для рекламных кампаний',
     bullets: [
-      'Почему люди не покупают даже хороший продукт',
-      'Как создавать предложения, которые привлекают клиентов',
-      'Как выделиться среди конкурентов',
-      'Как увеличить средний чек и количество обращений',
+      'Техники написания оферов',
+      'Как создавать предложения на основе целей продаж',
+      'Как донести свои сильные стороны на простом языке для клиентов',
+      'Учимся создавать рекламные креативы',
     ],
+    result:
+      'Составите рекламные оферы (предложения) для своей рекламной кампании. Научитесь создавать рекламные креативы.',
   },
   {
-    number: '/4',
+    number: 'День 4',
     title: 'Реклама для своего бизнеса',
     bullets: [
-      'Как работает реклама в Facebook и Instagram',
-      'Как самостоятельно настроить рекламную кампанию',
-      'Как выбрать аудиторию',
+      'Запуск рекламы через телефон',
+      'Запуск рекламы через Ads Manager в Инстаграм и Фейсбук',
+      'Выбор аудитории',
       'Как контролировать бюджет и получать заявки',
+      'Учимся анализировать показатели в маркетинге',
     ],
+    result:
+      'Запустите свою первую платную рекламную кампанию. Раз и на всегда разберетесь с бюджетом на маркетинг и выстроите систему привлечения клиентов.',
   },
 ];
 
@@ -116,12 +140,12 @@ const results = [
 ];
 
 const includes = [
-  ['🎓', '4 офлайн-лекции'],
-  ['🎥', 'Записи всех занятий'],
+  ['🎓', '4 лекции в живом формате'],
+  ['💻', 'Практика прямо на уроках'],
+  ['🎥', 'Уроки в записи'],
   ['📝', 'Практические домашние задания'],
-  ['🤝', 'Проверка заданий и рекомендации'],
-  ['💬', 'Поддержка 3 недели после обучения'],
-  ['📋', 'Готовые шаблоны и чек-листы'],
+  ['📈', 'Помощь в создании маркетинг стратегии'],
+  ['💬', 'Обратная связь в течение 3х недель после обучения'],
 ];
 
 const faq = [
@@ -145,7 +169,7 @@ const faq = [
   },
   {
     question: 'Какая цена интенсива?',
-    answer: 'Специальная цена участия — 1200 RON вместо 1600 RON.',
+    answer: 'Стоимость интенсива 1900 RON, но сейчас его можно приобрести за 1200 RON',
   },
 ];
 
@@ -153,7 +177,7 @@ export const head: DocumentHead = ({ params, url }) => {
   const lang = getLang(params.lang as string | undefined);
   const title = 'Интенсив по маркетингу в Бухаресте | GrowUp Agency';
   const description =
-    '4-дневный офлайн интенсив: как привлекать клиентов в Румынии и увеличить продажи за 4 дня.';
+    '4-дневный офлайн интенсив: как увеличить продажи и поднять узнаваемость в Румынии.';
   const image = `${url.origin}/1block.png`;
 
   return {
@@ -176,8 +200,88 @@ export const head: DocumentHead = ({ params, url }) => {
 
 export default component$(() => {
   const loc = useLocation();
+  const nav = useNavigate();
   const lang = getLang(loc.params.lang as string | undefined);
-  const ctaHref = applyHref(lang);
+  const isLeadModalOpen = useSignal(false);
+  const leadSending = useSignal(false);
+  const leadError = useSignal<string | null>(null);
+
+  const openLeadModal$ = $(() => {
+    leadError.value = null;
+    isLeadModalOpen.value = true;
+  });
+
+  const closeLeadModal$ = $(() => {
+    if (leadSending.value) return;
+    isLeadModalOpen.value = false;
+    leadError.value = null;
+  });
+
+  const handlePhoneInput$ = $((_event: Event, input: HTMLInputElement) => {
+    input.value = formatRomanianPhone(input.value);
+  });
+
+  const handleLeadSubmit$ = $(async (_event: SubmitEvent, form: HTMLFormElement) => {
+    if (leadSending.value) return;
+
+    leadSending.value = true;
+    leadError.value = null;
+
+    const formData = new FormData(form);
+    const name = String(formData.get('name') ?? '').trim();
+    const phone = String(formData.get('phone') ?? '').trim();
+    const telegram = String(formData.get('telegram') ?? '').trim();
+    const email = String(formData.get('email') ?? '').trim();
+
+    if (!name || !phone || !telegram || !email) {
+      leadError.value = 'Пожалуйста, заполните все поля.';
+      leadSending.value = false;
+      return;
+    }
+
+    if (!/^\+40 \d{3} \d{3} \d{3}$/.test(phone)) {
+      leadError.value = 'Укажите номер телефона в формате +40 700 000 000.';
+      leadSending.value = false;
+      return;
+    }
+
+    if (!/^@[A-Za-z0-9_]{5,32}$/.test(telegram)) {
+      leadError.value = 'Укажите ник Telegram в формате @username.';
+      leadSending.value = false;
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/consultation', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'marketing_intensive',
+          course: 'Интенсив по маркетингу в Румынии',
+          page: loc.url.pathname,
+          lang,
+          name,
+          phone,
+          telegram,
+          email,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        throw new Error(data?.error || 'Send failed');
+      }
+
+      form.reset();
+      isLeadModalOpen.value = false;
+      nav(`/${lang}/intensive/thanks/`);
+    } catch (e) {
+      console.error(e);
+      leadError.value = 'Не получилось отправить заявку. Попробуйте ещё раз.';
+    } finally {
+      leadSending.value = false;
+    }
+  });
 
   // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
@@ -234,14 +338,10 @@ export default component$(() => {
             </div>
 
             <h1 class="hero-title">
-              Как привлекать клиентов в Румынии
-              <span>и увеличить продажи за 4 дня</span>
+              <span class="hero-title-line hero-title-line--dark">Как увеличить продажи</span>
+              <span class="hero-title-line hero-title-line--accent">и поднять узнаваемость</span>
+              <span class="hero-title-line hero-title-line--accent">в Румынии</span>
             </h1>
-
-            <p class="hero-subtitle">
-              Практический интенсив
-              <strong>для предпринимателей, экспертов и специалистов</strong>
-            </p>
 
             <div class="hero-tags">
               <span>Офлайн</span>
@@ -249,9 +349,14 @@ export default component$(() => {
               <span>3 недели поддержка</span>
             </div>
 
-            <a class="cta cta--hero" href={ctaHref}>
+            <p class="hero-subtitle">
+              Практический интенсив
+              <strong>для предпринимателей, экспертов и специалистов</strong>
+            </p>
+
+            <button class="cta cta--hero" type="button" onClick$={openLeadModal$}>
               Оставить заявку <span>→</span>
-            </a>
+            </button>
           </div>
 
           <div class="hero-visual">
@@ -259,7 +364,7 @@ export default component$(() => {
               <img src="/1block.png" alt="Интенсив по маркетингу в Бухаресте" width="782" height="820" />
               <div class="price-ticket">
                 <strong>1200 RON</strong>
-                <span>1600 RON</span>
+                <span>1900 RON</span>
               </div>
             </div>
           </div>
@@ -279,12 +384,16 @@ export default component$(() => {
                     <li key={bullet}>{bullet}</li>
                   ))}
                 </ul>
+                <div class="program-item__result">
+                  <strong>Результат</strong>
+                  <p>{item.result}</p>
+                </div>
               </article>
             ))}
           </div>
-          <a class="cta cta--red" href={ctaHref}>
+          <button class="cta cta--red" type="button" onClick$={openLeadModal$}>
             Оставить заявку <span>→</span>
-          </a>
+          </button>
         </section>
 
         <section class="bonus-card reveal reveal--scale">
@@ -297,9 +406,9 @@ export default component$(() => {
             После интенсива вы получаете не просто знания, <strong>а конкретный план действий:</strong> что публиковать,
             какую рекламу запускать и в какой последовательности.
           </p>
-          <a class="cta cta--dark" href={ctaHref}>
+          <button class="cta cta--dark" type="button" onClick$={openLeadModal$}>
             Забрать бонус с интенсивом <span>→</span>
-          </a>
+          </button>
         </section>
 
         <section class="audience-section">
@@ -320,9 +429,9 @@ export default component$(() => {
           </div>
           <div class="audience-cta reveal reveal--soft">
             <h3>Хочешь привлекать клиентов через интернет и не зависеть только от рекомендаций</h3>
-            <a class="cta cta--red" href={ctaHref}>
+            <button class="cta cta--red" type="button" onClick$={openLeadModal$}>
               Это про меня — записаться <span>→</span>
-            </a>
+            </button>
           </div>
         </section>
 
@@ -339,9 +448,9 @@ export default component$(() => {
               </div>
             ))}
           </div>
-          <a class="cta cta--dark reveal reveal--soft" href={ctaHref}>
+          <button class="cta cta--dark reveal reveal--soft" type="button" onClick$={openLeadModal$}>
             Хочу такой результат <span>→</span>
-          </a>
+          </button>
         </section>
 
         <section class="includes-section">
@@ -374,15 +483,14 @@ export default component$(() => {
           <img class="expert-photo expert-photo--mobile" src="/ob-Alione.png" alt="Алёна Русу" width="726" height="1240" />
           <img class="expert-photo expert-photo--desktop" src="/aliona-png.png" alt="Алёна Русу" width="755" height="881" />
           <div class="expert-text">
-            <span aria-hidden="true">🔥</span>
             <p>
               Работала с бизнесами из Молдовы, Румынии и Европы. Помогает малому бизнесу привлекать
               клиентов через социальные сети и рекламу.
             </p>
           </div>
-          <a class="cta cta--red" href={ctaHref}>
+          <button class="cta cta--red" type="button" onClick$={openLeadModal$}>
             Учиться у Алёны <span>→</span>
-          </a>
+          </button>
         </section>
 
         <section class="price-section reveal reveal--scale">
@@ -391,10 +499,10 @@ export default component$(() => {
             <strong>1200 RON</strong>
             <del>1600 RON</del>
           </div>
-          <p>*Специальная цена действует ограниченное время</p>
-          <a class="cta cta--dark" href={ctaHref}>
+          <p>Специальная цена действует ограниченное время</p>
+          <button class="cta cta--dark" type="button" onClick$={openLeadModal$}>
             Забронировать место <span>→</span>
-          </a>
+          </button>
         </section>
 
         <section class="faq-section reveal reveal--lift">
@@ -414,15 +522,87 @@ export default component$(() => {
 
         <section class="final-cta reveal reveal--soft">
           <span>Запись открыта</span>
-          <h2>Узнайте программу и даты обучения уже сегодня</h2>
-          <p>
-            Получите программу, даты проведения и условия участия. Начните привлекать клиентов системно, а не случайно.
+          <h2>
+            Узнайте программу
+            <br />
+            и даты обучения
+            <br />
+            уже сегодня
+          </h2>
+          <p class="final-cta__text">
+            <span>Получите программу, даты проведения</span>
+            <span>и условия участия. Начните привлекать</span>
+            <span>клиентов системно, а не случайно. 🚀</span>
           </p>
-          <a class="cta cta--red" href={ctaHref}>
+          <button class="cta cta--red" type="button" onClick$={openLeadModal$}>
             Оставить заявку <span>→</span>
-          </a>
+          </button>
         </section>
       </div>
+
+      {isLeadModalOpen.value && (
+        <div class="lead-modal" role="dialog" aria-modal="true" aria-labelledby="lead-modal-title">
+          <button
+            class="lead-modal__backdrop"
+            type="button"
+            aria-label="Закрыть форму"
+            onClick$={closeLeadModal$}
+          />
+          <div class="lead-modal__panel">
+            <button class="lead-modal__close" type="button" aria-label="Закрыть" onClick$={closeLeadModal$}>
+              ×
+            </button>
+            <span class="lead-modal__eyebrow">Запись на интенсив</span>
+            <h2 id="lead-modal-title">Оставьте заявку</h2>
+            <p>Мы отправим детали программы, даты и условия участия в Telegram.</p>
+
+            <form class="lead-form" preventdefault:submit onSubmit$={handleLeadSubmit$}>
+              <label>
+                <span>Имя</span>
+                <input name="name" type="text" placeholder="Как к вам обращаться" required autoComplete="name" />
+              </label>
+
+              <label>
+                <span>Номер телефона</span>
+                <input
+                  name="phone"
+                  type="tel"
+                  placeholder="+40 700 000 000"
+                  required
+                  autoComplete="tel"
+                  inputMode="tel"
+                  maxLength={15}
+                  onInput$={handlePhoneInput$}
+                />
+              </label>
+
+              <label>
+                <span>Ник Telegram</span>
+                <input
+                  name="telegram"
+                  type="text"
+                  placeholder="@username"
+                  required
+                  inputMode="text"
+                  pattern="@[A-Za-z0-9_]{5,32}"
+                  title="Укажите ник Telegram в формате @username"
+                />
+              </label>
+
+              <label>
+                <span>Email</span>
+                <input name="email" type="email" placeholder="name@email.com" required autoComplete="email" />
+              </label>
+
+              {leadError.value && <p class="lead-form__error">{leadError.value}</p>}
+
+              <button class="cta cta--red lead-form__submit" type="submit" disabled={leadSending.value}>
+                {leadSending.value ? 'Отправляем...' : 'Отправить заявку'} <span>→</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </main>
   );
 });

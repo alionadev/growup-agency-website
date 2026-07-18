@@ -7,24 +7,33 @@ const escapeHtml = (value: string) =>
     .replace(/>/g, '&gt;');
 
 export const onPost: RequestHandler = async ({ request, json }) => {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-
-  if (!token || !chatId) {
-    console.error('TELEGRAM env variables not set', { token: !!token, chatId: !!chatId });
-    json(500, { ok: false, error: 'TELEGRAM env variables not set' });
-    return;
-  }
-
   const body = await request.json();
   const name = String(body.name ?? '').trim();
   const phone = String(body.phone ?? '').trim();
   const email = String(body.email ?? '').trim();
+  const telegram = String(body.telegram ?? '').trim();
   const page = String(body.page ?? '').trim();
   const source = String(body.source ?? 'consultation_form').trim();
   const course = String(body.course ?? '').trim();
   const niche = String(body.niche ?? '').trim();
   const lang = String(body.lang ?? '').trim();
+  const isIntensive = source === 'marketing_intensive';
+  const token = isIntensive
+    ? process.env.TELEGRAM_INTENSIVE_BOT_TOKEN
+    : process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = isIntensive
+    ? process.env.TELEGRAM_INTENSIVE_CHAT_ID || process.env.TELEGRAM_CHAT_ID
+    : process.env.TELEGRAM_CHAT_ID;
+
+  if (!token || !chatId) {
+    console.error('TELEGRAM env variables not set', {
+      bot: isIntensive ? 'intensive' : 'main',
+      token: !!token,
+      chatId: !!chatId,
+    });
+    json(500, { ok: false, error: 'TELEGRAM env variables not set' });
+    return;
+  }
 
   if (!name || (!phone && !email)) {
     json(400, { ok: false, error: 'Missing name or contact' });
@@ -33,6 +42,7 @@ export const onPost: RequestHandler = async ({ request, json }) => {
 
   const contacts: string[] = [];
   if (phone) contacts.push(`📞 Телефон: <b>${escapeHtml(phone)}</b>`);
+  if (telegram) contacts.push(`💬 Telegram: <b>${escapeHtml(telegram)}</b>`);
   if (email) contacts.push(`✉️ Email: <b>${escapeHtml(email)}</b>`);
 
   const text =
@@ -53,7 +63,7 @@ export const onPost: RequestHandler = async ({ request, json }) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          chat_id: 565615932,        
+          chat_id: chatId,
           text,
           parse_mode: 'HTML',
         }),
