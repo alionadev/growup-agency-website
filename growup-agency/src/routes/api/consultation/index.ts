@@ -9,6 +9,13 @@ const escapeHtml = (value: string) =>
 const cleanEnvValue = (value?: string) => value?.trim().replace(/^['"]|['"]$/g, '');
 const intensiveFallbackToken = '8954594500:AAF2PkN7t0F_fAyc5alKhkTlPnyy0dQaQNY';
 const intensiveFallbackChatId = '-5482261250';
+const tokenPattern = /\d+:[A-Za-z0-9_-]+/;
+
+const normalizeTelegramToken = (value?: string) => {
+  const cleaned = cleanEnvValue(value);
+  if (!cleaned) return undefined;
+  return cleaned.match(tokenPattern)?.[0];
+};
 
 export const onPost: RequestHandler = async ({ request, json, env }) => {
   const body = await request.json();
@@ -22,13 +29,12 @@ export const onPost: RequestHandler = async ({ request, json, env }) => {
   const niche = String(body.niche ?? '').trim();
   const lang = String(body.lang ?? '').trim();
   const isIntensive = source === 'marketing_intensive';
+  const intensiveEnvToken = normalizeTelegramToken(
+    env.get('TELEGRAM_INTENSIVE_BOT_TOKEN') || process.env.TELEGRAM_INTENSIVE_BOT_TOKEN,
+  );
   const token = isIntensive
-    ? cleanEnvValue(
-        env.get('TELEGRAM_INTENSIVE_BOT_TOKEN') ||
-          process.env.TELEGRAM_INTENSIVE_BOT_TOKEN ||
-          intensiveFallbackToken,
-      )
-    : cleanEnvValue(env.get('TELEGRAM_BOT_TOKEN') || process.env.TELEGRAM_BOT_TOKEN);
+    ? intensiveEnvToken || intensiveFallbackToken
+    : normalizeTelegramToken(env.get('TELEGRAM_BOT_TOKEN') || process.env.TELEGRAM_BOT_TOKEN);
   const chatId = isIntensive
     ? cleanEnvValue(env.get('TELEGRAM_INTENSIVE_CHAT_ID') || process.env.TELEGRAM_INTENSIVE_CHAT_ID) ||
       cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID) ||
