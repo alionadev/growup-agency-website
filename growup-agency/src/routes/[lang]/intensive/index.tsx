@@ -9,23 +9,6 @@ const LOCALES: Lang[] = ['ru', 'en', 'ro'];
 const getLang = (raw?: string): Lang =>
   raw && LOCALES.includes(raw as Lang) ? (raw as Lang) : 'ru';
 
-const formatRomanianPhone = (value: string) => {
-  let digits = value.replace(/\D/g, '');
-
-  if (digits.startsWith('40')) {
-    digits = digits.slice(2);
-  }
-
-  if (digits.startsWith('0')) {
-    digits = digits.slice(1);
-  }
-
-  digits = digits.slice(0, 9);
-
-  const groups = [digits.slice(0, 3), digits.slice(3, 6), digits.slice(6, 9)].filter(Boolean);
-  return groups.length ? `+40 ${groups.join(' ')}` : '+40 ';
-};
-
 const program = [
   {
     number: 'День 1',
@@ -217,10 +200,6 @@ export default component$(() => {
     leadError.value = null;
   });
 
-  const handlePhoneInput$ = $((_event: Event, input: HTMLInputElement) => {
-    input.value = formatRomanianPhone(input.value);
-  });
-
   const handleLeadSubmit$ = $(async (_event: SubmitEvent, form: HTMLFormElement) => {
     if (leadSending.value) return;
 
@@ -232,24 +211,6 @@ export default component$(() => {
     const phone = String(formData.get('phone') ?? '').trim();
     const telegram = String(formData.get('telegram') ?? '').trim();
     const email = String(formData.get('email') ?? '').trim();
-
-    if (!name || !phone || !telegram || !email) {
-      leadError.value = 'Пожалуйста, заполните все поля.';
-      leadSending.value = false;
-      return;
-    }
-
-    if (!/^\+40 \d{3} \d{3} \d{3}$/.test(phone)) {
-      leadError.value = 'Укажите номер телефона в формате +40 700 000 000.';
-      leadSending.value = false;
-      return;
-    }
-
-    if (!/^@[A-Za-z0-9_]{5,32}$/.test(telegram)) {
-      leadError.value = 'Укажите ник Telegram в формате @username.';
-      leadSending.value = false;
-      return;
-    }
 
     try {
       const res = await fetch('/api/consultation', {
@@ -562,7 +523,7 @@ export default component$(() => {
             <form class="lead-form" preventdefault:submit onSubmit$={handleLeadSubmit$}>
               <label>
                 <span>Имя</span>
-                <input name="name" type="text" placeholder="Как к вам обращаться" required autoComplete="name" />
+                <input name="name" type="text" placeholder="Как к вам обращаться" autoComplete="name" />
               </label>
 
               <label>
@@ -571,11 +532,8 @@ export default component$(() => {
                   name="phone"
                   type="tel"
                   placeholder="+40 700 000 000"
-                  required
                   autoComplete="tel"
                   inputMode="tel"
-                  maxLength={15}
-                  onInput$={handlePhoneInput$}
                 />
               </label>
 
@@ -585,16 +543,13 @@ export default component$(() => {
                   name="telegram"
                   type="text"
                   placeholder="@username"
-                  required
                   inputMode="text"
-                  pattern="@[A-Za-z0-9_]{5,32}"
-                  title="Укажите ник Telegram в формате @username"
                 />
               </label>
 
               <label>
                 <span>Email</span>
-                <input name="email" type="email" placeholder="name@email.com" required autoComplete="email" />
+                <input name="email" type="text" placeholder="name@email.com" autoComplete="email" />
               </label>
 
               {leadError.value && <p class="lead-form__error">{leadError.value}</p>}

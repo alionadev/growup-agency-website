@@ -38,7 +38,7 @@ export const onPost: RequestHandler = async ({ request, json }) => {
     return;
   }
 
-  if (!name || (!phone && !email)) {
+  if (!isIntensive && (!name || (!phone && !email))) {
     json(400, { ok: false, error: 'Missing name or contact' });
     return;
   }
