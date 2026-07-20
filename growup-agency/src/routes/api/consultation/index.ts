@@ -23,10 +23,7 @@ export const onPost: RequestHandler = async ({ request, json, env }) => {
   const token = isIntensive
     ? cleanEnvValue(env.get('TELEGRAM_INTENSIVE_BOT_TOKEN') || process.env.TELEGRAM_INTENSIVE_BOT_TOKEN)
     : cleanEnvValue(env.get('TELEGRAM_BOT_TOKEN') || process.env.TELEGRAM_BOT_TOKEN);
-  const chatId = isIntensive
-    ? cleanEnvValue(env.get('TELEGRAM_INTENSIVE_CHAT_ID') || process.env.TELEGRAM_INTENSIVE_CHAT_ID) ||
-      cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID)
-    : cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID);
+  const chatId = cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID);
 
   if (!token || !chatId) {
     console.error('TELEGRAM env variables not set', {

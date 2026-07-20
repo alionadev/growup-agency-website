@@ -187,8 +187,15 @@
   line-height: 1.02;
 }
 
+.hero-subtitle span,
 .hero-subtitle strong {
-  font-size: 16px;
+  display: block;
+  white-space: nowrap;
+  font-size: inherit;
+}
+
+.hero-subtitle strong {
+  font-weight: 700;
 }
 
 .hero-tags {
@@ -827,33 +834,33 @@
   position: relative;
   z-index: 2;
   display: grid;
-  width: min(100%, 178px);
-  grid-template-columns: minmax(0, 1fr);
-  gap: 12px;
-  margin-top: 28px;
+  width: min(100%, 238px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 22px;
 }
 
 .expert-stats p {
   display: grid;
-  min-height: 116px;
+  min-height: 98px;
   align-content: start;
-  gap: 11px;
+  gap: 8px;
   margin: 0;
-  border-radius: 18px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.07);
-  padding: 18px;
+  padding: 13px 12px;
 }
 
 .expert-stats strong {
   color: var(--yellow);
-  font-size: 42px;
+  font-size: 32px;
   line-height: 0.85;
 }
 
 .expert-stats span {
   color: rgba(255, 255, 255, 0.76);
-  font-size: 15px;
-  line-height: 1.18;
+  font-size: 11px;
+  line-height: 1.16;
 }
 
 .expert-card img {
@@ -879,7 +886,7 @@
   border-radius: 0 22px 22px 22px;
   background: var(--yellow);
   color: var(--ink);
-  padding: 14px 18px 18px;
+  padding: 14px 16px 16px;
 }
 
 .expert-text span {
@@ -890,9 +897,9 @@
 
 .expert-text p {
   margin: 0;
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 600;
-  line-height: 1.12;
+  line-height: 1.18;
 }
 
 .expert-card .cta {
@@ -902,6 +909,101 @@
   left: 16px;
   z-index: 4;
   width: auto;
+}
+
+.expert-quote-card {
+  position: relative;
+  margin-bottom: 58px;
+  overflow: hidden;
+  border-radius: 30px;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(95, 94, 233, 0.24), transparent 13rem),
+    radial-gradient(circle at 8% 100%, rgba(239, 77, 66, 0.22), transparent 10rem),
+    var(--ink);
+  color: #fff;
+  padding: 30px 20px 24px;
+}
+
+.expert-quote-card__mark {
+  color: var(--blue);
+  font-size: 80px;
+  font-weight: 800;
+  line-height: 0.58;
+}
+
+.expert-quote-card__content {
+  display: grid;
+  gap: 24px;
+  margin-top: 28px;
+}
+
+.expert-quote-card__content p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 22px;
+  font-weight: 540;
+  line-height: 1.34;
+}
+
+.expert-quote-card .accent-blue {
+  color: var(--blue);
+  font-weight: 780;
+}
+
+.expert-quote-card .accent-red {
+  color: #ff6a5f;
+  font-weight: 780;
+}
+
+.expert-quote-card .accent-yellow {
+  color: var(--yellow);
+  font-weight: 780;
+}
+
+.expert-quote-card__author {
+  display: grid;
+  grid-template-columns: 54px minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  margin-top: 34px;
+  border-top: 3px solid var(--blue);
+  padding-top: 22px;
+}
+
+.expert-quote-card__author > span {
+  display: inline-flex;
+  width: 54px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.expert-quote-card__author img {
+  display: block;
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.expert-quote-card__author p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.expert-quote-card__author strong {
+  display: block;
+  margin-bottom: 4px;
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
 }
 
 .price-section {
@@ -1330,12 +1432,7 @@
     line-height: 1;
   }
 
-  .hero-subtitle strong::before {
-    content: " ";
-  }
-
   .hero-subtitle {
-    display: block;
     max-width: 640px;
     margin: 34px 0 0;
     color: var(--muted);
@@ -1344,9 +1441,7 @@
   }
 
   .hero-subtitle strong {
-    display: inline;
-    font-size: inherit;
-    font-weight: 400;
+    font-weight: 700;
   }
 
   .hero-tags {
@@ -1574,6 +1669,7 @@
   .results-section,
   .includes-section,
   .expert-card,
+  .expert-quote-card,
   .price-section,
   .faq-section {
     margin-bottom: 112px;
@@ -1758,19 +1854,19 @@
     grid-row: 3;
     width: 100%;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
+    gap: 14px;
     margin-top: 28px;
   }
 
   .expert-stats p {
-    min-height: 190px;
+    min-height: 150px;
     border-radius: 18px;
-    padding: 26px;
+    padding: 22px;
   }
 
   .expert-stats span {
-    font-size: 24px;
-    line-height: 1.45;
+    font-size: 18px;
+    line-height: 1.28;
   }
 
   .expert-photo--mobile {
@@ -1822,7 +1918,7 @@
   }
 
   .expert-text p {
-    font-size: 19px;
+    font-size: 18px;
   }
 
   .expert-card .cta {
@@ -1834,6 +1930,54 @@
     grid-row: 5;
     width: max-content;
     margin-top: 36px;
+  }
+
+  .expert-quote-card {
+    max-width: 860px;
+    margin-right: auto;
+    margin-left: auto;
+    border-radius: 34px;
+    padding: 64px 64px 56px;
+  }
+
+  .expert-quote-card__mark {
+    font-size: 116px;
+  }
+
+  .expert-quote-card__content {
+    gap: 34px;
+    margin-top: 44px;
+  }
+
+  .expert-quote-card__content p {
+    font-size: 30px;
+    line-height: 1.38;
+  }
+
+  .expert-quote-card__author {
+    grid-template-columns: 74px minmax(0, 1fr);
+    gap: 22px;
+    margin-top: 54px;
+    padding-top: 34px;
+  }
+
+  .expert-quote-card__author > span {
+    width: 74px;
+    height: 74px;
+    font-size: 28px;
+  }
+
+  .expert-quote-card__author img {
+    width: 48px;
+    height: 48px;
+  }
+
+  .expert-quote-card__author p {
+    font-size: 20px;
+  }
+
+  .expert-quote-card__author strong {
+    font-size: 30px;
   }
 
   .price-section {
@@ -1926,6 +2070,10 @@
   .intensive-shell {
     padding-right: 20px;
     padding-left: 20px;
+  }
+
+  .hero-subtitle {
+    font-size: 14px;
   }
 
   .hero-photo-card {

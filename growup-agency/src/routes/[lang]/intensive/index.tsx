@@ -314,8 +314,8 @@ export default component$(() => {
             </div>
 
             <p class="hero-subtitle">
-              Практический интенсив
-              <strong>для предпринимателей, экспертов и специалистов</strong>
+              <span>Практический интенсив для</span>
+              <strong>предпринимателей, экспертов и специалистов</strong>
             </p>
 
             <button class="cta cta--hero" type="button" onClick$={openLeadModal$}>
@@ -437,24 +437,65 @@ export default component$(() => {
           <div class="expert-stats">
             <p>
               <strong>8+</strong>
-              <span>лет<br />в маркетинге<br />и таргет-рекламе</span>
+              <span>лет опыта<br />в маркетинге</span>
             </p>
             <p>
-              <strong>150+</strong>
+              <strong>100+</strong>
               <span>реализованных<br />проектов</span>
+            </p>
+            <p>
+              <strong>200+</strong>
+              <span>обученных<br />специалистов</span>
+            </p>
+            <p>
+              <strong>$1.2M+</strong>
+              <span>рекламного бюджета<br />под управлением</span>
             </p>
           </div>
           <img class="expert-photo expert-photo--mobile" src="/ob-Alione.png" alt="Алёна Русу" width="726" height="1240" />
           <img class="expert-photo expert-photo--desktop" src="/aliona-png.png" alt="Алёна Русу" width="755" height="881" />
           <div class="expert-text">
             <p>
-              Работала с бизнесами из Молдовы, Румынии и Европы. Помогает малому бизнесу привлекать
-              клиентов через социальные сети и рекламу.
+              Более 8 лет в маркетинге. 100+ реализованных проектов, 200+ обученных специалистов
+              и более $1.2M рекламного бюджета под управлением. Клиенты остаются со мной надолго:
+              большинство сотрудничает не менее 6 месяцев, а многие работают со мной годами. Сегодня
+              я помогаю предпринимателям выстраивать системный маркетинг, который стабильно привлекает
+              клиентов и способствует росту бизнеса.
             </p>
           </div>
           <button class="cta cta--red" type="button" onClick$={openLeadModal$}>
             Учиться у Алёны <span>→</span>
           </button>
+        </section>
+
+        <section class="expert-quote-card reveal reveal--soft">
+          <div class="expert-quote-card__mark">”</div>
+          <div class="expert-quote-card__content">
+            <p>
+              Не просто запускать рекламу — а <span class="accent-blue">мыслить как маркетолог</span>.
+              Большинство предпринимателей уже умеют пользоваться ChatGPT и знают, где нажать кнопку
+              в рекламном кабинете. Но этого <span class="accent-red">недостаточно для роста бизнеса.</span>
+            </p>
+            <p>
+              Я хочу научить вас понимать, <span class="accent-yellow">почему одни инструменты работают</span>,
+              а другие только расходуют бюджет — анализировать результаты, принимать решения на основе цифр
+              и использовать ИИ как помощника, а не замену мышлению.
+            </p>
+            <p>
+              Моя цель — чтобы после интенсива вы могли
+              <span class="accent-blue"> самостоятельно принимать маркетинговые решения</span> и строить
+              <span class="accent-red"> сильный и устойчивый маркетинг.</span>
+            </p>
+          </div>
+          <div class="expert-quote-card__author">
+            <span>
+              <img src="/logo-grow.png" alt="GrowUp Agency" width="3370" height="3371" />
+            </span>
+            <p>
+              <strong>Алёна Русу</strong>
+              Основатель GrowUp Agency · 8+ лет в маркетинге
+            </p>
+          </div>
         </section>
 
         <section class="price-section reveal reveal--scale">
