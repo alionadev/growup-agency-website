@@ -7,8 +7,10 @@ const escapeHtml = (value: string) =>
     .replace(/>/g, '&gt;');
 
 const cleanEnvValue = (value?: string) => value?.trim().replace(/^['"]|['"]$/g, '');
-const intensiveFallbackToken = '8954594500:AAF2PkN7t0F_fAyc5alKhkTlPnyy0dQaQNY';
-const intensiveFallbackChatId = '-5482261250';
+const mainFallbackToken = '8511794313:AAHNT5U4cVODwGJwu1KgyCtr2MVwGvJXFrk';
+const mainFallbackChatId = '565615932';
+const intensiveFallbackToken = '8925271132:AAFW-dWy8Y5yZiAQiByqLRNjes7gF8A6KAQ';
+const intensiveFallbackChatId = '-5125672000';
 const tokenPattern = /\d+:[A-Za-z0-9_-]+/;
 
 const normalizeTelegramToken = (value?: string) => {
@@ -32,14 +34,18 @@ export const onPost: RequestHandler = async ({ request, json, env }) => {
   const intensiveEnvToken = normalizeTelegramToken(
     env.get('TELEGRAM_INTENSIVE_BOT_TOKEN') || process.env.TELEGRAM_INTENSIVE_BOT_TOKEN,
   );
-  const token = isIntensive
-    ? intensiveEnvToken || intensiveFallbackToken
-    : normalizeTelegramToken(env.get('TELEGRAM_BOT_TOKEN') || process.env.TELEGRAM_BOT_TOKEN);
-  const chatId = isIntensive
-    ? cleanEnvValue(env.get('TELEGRAM_INTENSIVE_CHAT_ID') || process.env.TELEGRAM_INTENSIVE_CHAT_ID) ||
-      cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID) ||
-      intensiveFallbackChatId
-    : cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID);
+  const mainToken =
+    normalizeTelegramToken(env.get('TELEGRAM_BOT_TOKEN') || process.env.TELEGRAM_BOT_TOKEN) ||
+    mainFallbackToken;
+  const mainChatId =
+    cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID) ||
+    mainFallbackChatId;
+  const intensiveToken = intensiveEnvToken || intensiveFallbackToken;
+  const intensiveChatId =
+    cleanEnvValue(env.get('TELEGRAM_INTENSIVE_CHAT_ID') || process.env.TELEGRAM_INTENSIVE_CHAT_ID) ||
+    intensiveFallbackChatId;
+  const token = isIntensive ? intensiveToken : mainToken;
+  const chatId = isIntensive ? intensiveChatId : mainChatId;
 
   if (!token || !chatId) {
     console.error('TELEGRAM env variables not set', {
@@ -72,29 +78,56 @@ export const onPost: RequestHandler = async ({ request, json, env }) => {
     (page ? `📄 Страница: <code>${escapeHtml(page)}</code>\n` : '') +
     `🕒 Время: ${new Date().toLocaleString('ru-RU')}`;
 
-  try {
-    const tgRes = await fetch(
-      `https://api.telegram.org/bot${token}/sendMessage`,
+  const sendTelegram = async (telegramToken: string, telegramChatId: string, messageText = text) => {
+    const response = await fetch(
+      `https://api.telegram.org/bot${telegramToken}/sendMessage`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          chat_id: chatId,
-          text,
+          chat_id: telegramChatId,
+          text: messageText,
           parse_mode: 'HTML',
         }),
       },
     );
 
-    let tgJson: any = null;
+    let data: any = null;
     try {
-      tgJson = await tgRes.json();
+      data = await response.json();
     } catch {
-      // на всякий случай, если тело не JSON
+      // Telegram normally returns JSON, but keep the caller resilient.
+    }
+
+    return { response, data };
+  };
+
+  try {
+    let { response: tgRes, data: tgJson } = await sendTelegram(token, chatId);
+
+    if (isIntensive && (!tgRes.ok || !tgJson?.ok)) {
+      console.error('Telegram intensive bot error, retrying main bot:', {
+        status: tgRes.status,
+        error_code: tgJson?.error_code,
+        description: tgJson?.description,
+      });
+
+      const fallbackText =
+        text +
+        '\n\n' +
+        `⚠️ <b>Резервная отправка:</b> интенсивный бот не ответил (${escapeHtml(
+          tgJson?.description || `HTTP ${tgRes.status}`,
+        )}).`;
+
+      ({ response: tgRes, data: tgJson } = await sendTelegram(mainToken, mainChatId, fallbackText));
+
+      if (tgRes.ok && tgJson?.ok) {
+        console.error('Telegram fallback delivered via main bot');
+      }
     }
 
     if (!tgRes.ok || !tgJson?.ok) {
-      console.error('Telegram error:', tgJson || (await tgRes.text().catch(() => 'no body')));
+      console.error('Telegram error:', tgJson || 'no json body');
       json(500, {
         ok: false,
         error:
