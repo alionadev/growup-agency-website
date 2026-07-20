@@ -111,6 +111,21 @@ const audience = [
     index: '07',
     icon: '🛍️',
   },
+  {
+    className: 'audience-card--light',
+    title: 'Психолог',
+    text: 'или эксперт по личному развитию',
+    index: '08',
+    icon: '🌿',
+  },
+  {
+    className: 'audience-card--red',
+    title: 'Коуч',
+    text: 'или наставник',
+    index: '09',
+    icon: '💬',
+    italic: true,
+  },
 ];
 
 const results = [
@@ -384,7 +399,7 @@ export default component$(() => {
             {audience.map((card) => (
               <article class={`audience-card reveal reveal--card ${card.className}`} key={card.index}>
                 <h3>{card.title}</h3>
-                <p>{card.text}</p>
+                <p class={card.italic ? 'audience-text--italic' : ''}>{card.text}</p>
                 <span class="audience-index">
                   {card.index} <small>{card.icon}</small>
                 </span>
@@ -457,21 +472,18 @@ export default component$(() => {
           <div class="expert-text">
             <span class="expert-text__flame">🔥</span>
             <p>
-              <strong>Более 8 лет в маркетинге.</strong>
+              Более 8 лет в маркетинге.
               <br />
-              <strong>
-                100+ реализованных проектов, 200+ обученных специалистов и более{' '}
-                <span>$1.2M рекламного бюджета</span> под управлением.
-              </strong>
+              100+ реализованных проектов, 200+ обученных специалистов и более{' '}
+              <strong>$1.2M рекламного бюджета</strong> под управлением.
             </p>
             <p>
-              <strong>Клиенты остаются со мной надолго: большинство</strong> сотрудничает не менее
-              6 месяцев, а многие работают со мной годами.
+              Клиенты остаются со мной надолго: большинство сотрудничает не менее 6 месяцев,
+              а многие работают со мной годами.
             </p>
             <p>
-              <strong>Сегодня я помогаю предпринимателям</strong> выстраивать системный маркетинг,{' '}
-              <strong>который стабильно</strong> привлекает клиентов{' '}
-              <strong>и способствует росту бизнеса.</strong>
+              Сегодня я помогаю предпринимателям выстраивать системный маркетинг, который стабильно
+              привлекает клиентов и способствует росту бизнеса.
             </p>
           </div>
           <button class="cta cta--red" type="button" onClick$={openLeadModal$}>
