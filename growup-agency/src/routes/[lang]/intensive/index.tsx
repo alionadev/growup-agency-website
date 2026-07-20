@@ -176,7 +176,7 @@ export const head: DocumentHead = ({ params, url }) => {
   const title = 'Интенсив по маркетингу в Бухаресте | GrowUp Agency';
   const description =
     '4-дневный офлайн интенсив: как увеличить продажи и поднять узнаваемость в Румынии.';
-  const image = `${url.origin}/preview.png`;
+  const image = `${url.origin}/preview.png?v=20260720`;
 
   return {
     title,
@@ -184,10 +184,12 @@ export const head: DocumentHead = ({ params, url }) => {
       { name: 'description', content: description },
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
+      { property: 'og:site_name', content: 'GrowUp Agency' },
       { property: 'og:type', content: 'website' },
       { property: 'og:url', content: url.href },
       { property: 'og:image', content: image },
       { property: 'og:image:secure_url', content: image },
+      { property: 'og:image:type', content: 'image/png' },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
       { property: 'og:image:alt', content: title },
