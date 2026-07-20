@@ -8,7 +8,7 @@ const escapeHtml = (value: string) =>
 
 const cleanEnvValue = (value?: string) => value?.trim().replace(/^['"]|['"]$/g, '');
 
-export const onPost: RequestHandler = async ({ request, json }) => {
+export const onPost: RequestHandler = async ({ request, json, env }) => {
   const body = await request.json();
   const name = String(body.name ?? '').trim();
   const phone = String(body.phone ?? '').trim();
@@ -21,12 +21,12 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   const lang = String(body.lang ?? '').trim();
   const isIntensive = source === 'marketing_intensive';
   const token = isIntensive
-    ? cleanEnvValue(process.env.TELEGRAM_INTENSIVE_BOT_TOKEN)
-    : cleanEnvValue(process.env.TELEGRAM_BOT_TOKEN);
+    ? cleanEnvValue(env.get('TELEGRAM_INTENSIVE_BOT_TOKEN') || process.env.TELEGRAM_INTENSIVE_BOT_TOKEN)
+    : cleanEnvValue(env.get('TELEGRAM_BOT_TOKEN') || process.env.TELEGRAM_BOT_TOKEN);
   const chatId = isIntensive
-    ? cleanEnvValue(process.env.TELEGRAM_INTENSIVE_CHAT_ID) ||
-      cleanEnvValue(process.env.TELEGRAM_CHAT_ID)
-    : cleanEnvValue(process.env.TELEGRAM_CHAT_ID);
+    ? cleanEnvValue(env.get('TELEGRAM_INTENSIVE_CHAT_ID') || process.env.TELEGRAM_INTENSIVE_CHAT_ID) ||
+      cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID)
+    : cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID);
 
   if (!token || !chatId) {
     console.error('TELEGRAM env variables not set', {
