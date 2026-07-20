@@ -889,10 +889,13 @@
   padding: 14px 16px 16px;
 }
 
-.expert-text span {
+.expert-text__flame {
+  position: absolute;
+  top: -50px;
+  left: 18px;
   display: block;
-  margin-bottom: 10px;
-  font-size: 22px;
+  font-size: 48px;
+  line-height: 1;
 }
 
 .expert-text p {
@@ -900,6 +903,19 @@
   font-size: 14px;
   font-weight: 600;
   line-height: 1.18;
+}
+
+.expert-text p + p {
+  margin-top: 8px;
+}
+
+.expert-text strong {
+  font-weight: 800;
+}
+
+.expert-text strong span {
+  display: inline;
+  font-weight: 900;
 }
 
 .expert-card .cta {
@@ -1905,16 +1921,17 @@
     padding: 18px 22px 20px;
   }
 
-  .expert-text span {
+  .expert-text__flame {
     display: inline-flex;
-    margin: 0;
-    width: 36px;
-    height: 36px;
+    top: -56px;
+    left: 22px;
+    width: auto;
+    height: auto;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: var(--red);
-    font-size: 20px;
+    border-radius: 0;
+    background: transparent;
+    font-size: 52px;
   }
 
   .expert-text p {

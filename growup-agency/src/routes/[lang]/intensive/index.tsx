@@ -455,12 +455,23 @@ export default component$(() => {
           <img class="expert-photo expert-photo--mobile" src="/ob-Alione.png" alt="Алёна Русу" width="726" height="1240" />
           <img class="expert-photo expert-photo--desktop" src="/aliona-png.png" alt="Алёна Русу" width="755" height="881" />
           <div class="expert-text">
+            <span class="expert-text__flame">🔥</span>
             <p>
-              Более 8 лет в маркетинге. 100+ реализованных проектов, 200+ обученных специалистов
-              и более $1.2M рекламного бюджета под управлением. Клиенты остаются со мной надолго:
-              большинство сотрудничает не менее 6 месяцев, а многие работают со мной годами. Сегодня
-              я помогаю предпринимателям выстраивать системный маркетинг, который стабильно привлекает
-              клиентов и способствует росту бизнеса.
+              <strong>Более 8 лет в маркетинге.</strong>
+              <br />
+              <strong>
+                100+ реализованных проектов, 200+ обученных специалистов и более{' '}
+                <span>$1.2M рекламного бюджета</span> под управлением.
+              </strong>
+            </p>
+            <p>
+              <strong>Клиенты остаются со мной надолго: большинство</strong> сотрудничает не менее
+              6 месяцев, а многие работают со мной годами.
+            </p>
+            <p>
+              <strong>Сегодня я помогаю предпринимателям</strong> выстраивать системный маркетинг,{' '}
+              <strong>который стабильно</strong> привлекает клиентов{' '}
+              <strong>и способствует росту бизнеса.</strong>
             </p>
           </div>
           <button class="cta cta--red" type="button" onClick$={openLeadModal$}>
@@ -502,7 +513,7 @@ export default component$(() => {
           <h2>Количество мест ограничено</h2>
           <div class="price-values">
             <strong>1200 RON</strong>
-            <del>1600 RON</del>
+            <del>1900 RON</del>
           </div>
           <p>Специальная цена действует ограниченное время</p>
           <button class="cta cta--dark" type="button" onClick$={openLeadModal$}>

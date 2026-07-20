@@ -7,6 +7,8 @@ const escapeHtml = (value: string) =>
     .replace(/>/g, '&gt;');
 
 const cleanEnvValue = (value?: string) => value?.trim().replace(/^['"]|['"]$/g, '');
+const intensiveFallbackToken = '8954594500:AAF2PkN7t0F_fAyc5alKhkTlPnyy0dQaQNY';
+const intensiveFallbackChatId = '-5482261250';
 
 export const onPost: RequestHandler = async ({ request, json, env }) => {
   const body = await request.json();
@@ -21,9 +23,17 @@ export const onPost: RequestHandler = async ({ request, json, env }) => {
   const lang = String(body.lang ?? '').trim();
   const isIntensive = source === 'marketing_intensive';
   const token = isIntensive
-    ? cleanEnvValue(env.get('TELEGRAM_INTENSIVE_BOT_TOKEN') || process.env.TELEGRAM_INTENSIVE_BOT_TOKEN)
+    ? cleanEnvValue(
+        env.get('TELEGRAM_INTENSIVE_BOT_TOKEN') ||
+          process.env.TELEGRAM_INTENSIVE_BOT_TOKEN ||
+          intensiveFallbackToken,
+      )
     : cleanEnvValue(env.get('TELEGRAM_BOT_TOKEN') || process.env.TELEGRAM_BOT_TOKEN);
-  const chatId = cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID);
+  const chatId = isIntensive
+    ? cleanEnvValue(env.get('TELEGRAM_INTENSIVE_CHAT_ID') || process.env.TELEGRAM_INTENSIVE_CHAT_ID) ||
+      cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID) ||
+      intensiveFallbackChatId
+    : cleanEnvValue(env.get('TELEGRAM_CHAT_ID') || process.env.TELEGRAM_CHAT_ID);
 
   if (!token || !chatId) {
     console.error('TELEGRAM env variables not set', {
