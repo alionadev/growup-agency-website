@@ -6,6 +6,8 @@ const escapeHtml = (value: string) =>
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;');
 
+const cleanEnvValue = (value?: string) => value?.trim().replace(/^['"]|['"]$/g, '');
+
 export const onPost: RequestHandler = async ({ request, json }) => {
   const body = await request.json();
   const name = String(body.name ?? '').trim();
@@ -19,11 +21,12 @@ export const onPost: RequestHandler = async ({ request, json }) => {
   const lang = String(body.lang ?? '').trim();
   const isIntensive = source === 'marketing_intensive';
   const token = isIntensive
-    ? process.env.TELEGRAM_INTENSIVE_BOT_TOKEN
-    : process.env.TELEGRAM_BOT_TOKEN;
+    ? cleanEnvValue(process.env.TELEGRAM_INTENSIVE_BOT_TOKEN)
+    : cleanEnvValue(process.env.TELEGRAM_BOT_TOKEN);
   const chatId = isIntensive
-    ? process.env.TELEGRAM_INTENSIVE_CHAT_ID || process.env.TELEGRAM_CHAT_ID
-    : process.env.TELEGRAM_CHAT_ID;
+    ? cleanEnvValue(process.env.TELEGRAM_INTENSIVE_CHAT_ID) ||
+      cleanEnvValue(process.env.TELEGRAM_CHAT_ID)
+    : cleanEnvValue(process.env.TELEGRAM_CHAT_ID);
 
   if (!token || !chatId) {
     console.error('TELEGRAM env variables not set', {

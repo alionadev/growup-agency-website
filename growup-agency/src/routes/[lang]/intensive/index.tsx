@@ -277,7 +277,10 @@ export default component$(() => {
       nav(`/${lang}/intensive/thanks/`);
     } catch (e) {
       console.error(e);
-      leadError.value = 'Не получилось отправить заявку. Попробуйте ещё раз.';
+      leadError.value =
+        e instanceof Error && e.message
+          ? e.message
+          : 'Не получилось отправить заявку. Попробуйте ещё раз.';
     } finally {
       leadSending.value = false;
     }
